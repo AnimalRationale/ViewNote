@@ -20,5 +20,19 @@ namespace ViewNote
         {
             InitializeComponent();
         }
+
+        private void buttonLoad_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void buttonPopulate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
     }
 }
