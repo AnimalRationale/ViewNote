@@ -89,12 +89,12 @@
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.questionmark.rest.png" Text="Help"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.feature.settings.rest.png" Text="Settings"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.delete.rest.png" Text="Delete all"/>
-            <shell:ApplicationBar.MenuItems>
+            <!-- <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="Add note to list"/>                
                 <shell:ApplicationBarMenuItem Text="Help and About ViewNote"/>
                 <shell:ApplicationBarMenuItem Text="Settings"/>
                 <shell:ApplicationBarMenuItem Text="Delete all notes"/>
-            </shell:ApplicationBar.MenuItems>
+            </shell:ApplicationBar.MenuItems> -->
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>
