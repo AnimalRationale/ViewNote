@@ -60,8 +60,8 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddNote.xaml.cs">
-      <DependentUpon>AddNote.xaml</DependentUpon>
+    <Compile Include="AddNotePage.xaml.cs">
+      <DependentUpon>AddNotePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -82,7 +82,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="AddNote.xaml">
+    <Page Include="AddNotePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

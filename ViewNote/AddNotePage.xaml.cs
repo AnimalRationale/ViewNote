@@ -10,16 +10,19 @@ using Microsoft.Phone.Shell;
 
 namespace ViewNote
 {
-    public partial class SettingsPage : PhoneApplicationPage
+    public partial class AddNote : PhoneApplicationPage
     {
-        public SettingsPage()
+        public AddNote()
         {
             InitializeComponent();
         }
 
-        private void appbarAdd_Click(object sender, EventArgs e)
+        private void appbarCheck_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/AddNotePage.xaml", UriKind.Relative));
+            if ( NavigationService.CanGoBack )
+            {
+                NavigationService.GoBack();
+            };
         }
 
         private void appbarHelp_Click(object sender, EventArgs e)
@@ -27,17 +30,12 @@ namespace ViewNote
             NavigationService.Navigate(new Uri("/HelpPage.xaml", UriKind.Relative));
         }
 
-        private void appbarBack_Click(object sender, EventArgs e)
-        {            
+        private void appbarCancel_Click(object sender, EventArgs e)
+        {
             if ( NavigationService.CanGoBack )
             {
                 NavigationService.GoBack();
             }
-        }
-
-        private void appbarDelete_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

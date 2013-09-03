@@ -16,5 +16,28 @@ namespace ViewNote
         {
             InitializeComponent();
         }
+
+        private void appbarAdd_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/AddNotePage.xaml", UriKind.Relative));
+        }
+
+        private void appbarBack_Click(object sender, EventArgs e)
+        {
+            if ( NavigationService.CanGoBack )
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+        private void appbarSettings_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
+        }
+
+        private void appbarDelete_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

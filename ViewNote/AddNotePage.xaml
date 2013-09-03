@@ -33,9 +33,9 @@
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.check.rest.png" Text="Add note"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.questionmark.rest.png" Text="Help"/>            
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.cancel.rest.png" Text="Cancel adding"/>            
+            <shell:ApplicationBarIconButton x:Name="appbarCheck" IconUri="/Images/appbar.check.rest.png" Text="Add note"  Click="appbarCheck_Click"/>
+            <shell:ApplicationBarIconButton x:Name="appbarHelp" IconUri="/Images/appbar.questionmark.rest.png" Text="Help"  Click="appbarHelp_Click"/>
+            <shell:ApplicationBarIconButton x:Name="appbarCancel" IconUri="/Images/appbar.cancel.rest.png" Text="Cancel adding"  Click="appbarCancel_Click"/>            
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>
