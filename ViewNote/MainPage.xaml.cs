@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.IO.IsolatedStorage;
 
 namespace ViewNote
 {
@@ -19,6 +20,32 @@ namespace ViewNote
         public MainPage()
         {
             InitializeComponent();
+            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+            // txtInput is a TextBox defined in XAML.
+            if ( !settings.Contains("AppBackColor") )
+            {
+                settings.Add("AppBackColor", "Black");
+                settings.Add("AppbarColor", "Dark");
+                settings.Save();
+            }
+            else
+            {
+                if ( ( settings["AppBackColor"] as string ).Equals("Gray") )
+                {
+                    this.LayoutRoot.Background = new SolidColorBrush(Colors.Gray);
+                }
+                else {
+                    this.LayoutRoot.Background = new SolidColorBrush(Colors.Black);
+                }
+                if ( ( settings["AppbarColor"] as string ).Equals("Accent") )
+                {
+                    ApplicationBar.BackgroundColor = (Color)Resources["PhoneAccentColor"];
+                }
+                else {
+                    ApplicationBar.BackgroundColor = new Color() { A = 0, R = 0, G = 0, B = 0 };
+                }
+            }
+            
         }
 
         private void buttonLoad_Click(object sender, RoutedEventArgs e)

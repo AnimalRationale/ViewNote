@@ -24,10 +24,7 @@ namespace ViewNote
 
         private void appbarBack_Click(object sender, EventArgs e)
         {
-            if ( NavigationService.CanGoBack )
-            {
-                NavigationService.GoBack();
-            }
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
         }
 
         private void appbarSettings_Click(object sender, EventArgs e)
