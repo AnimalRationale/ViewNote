@@ -21,7 +21,7 @@ namespace ViewNote
         {
             InitializeComponent();
             IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
-            // txtInput is a TextBox defined in XAML.
+            
             if ( !settings.Contains("AppBackColor") )
             {
                 settings.Add("AppBackColor", "Black");
@@ -30,19 +30,19 @@ namespace ViewNote
             }
             else
             {
-                if ( ( settings["AppBackColor"] as string ).Equals("Gray") )
+                if ( settings["AppBackColor"] as string == "userColor01" )
                 {
-                    this.LayoutRoot.Background = new SolidColorBrush(Colors.Gray);
+                    this.LayoutRoot.Background = VNcolors.ColorAppBg;
                 }
                 else {
                     this.LayoutRoot.Background = new SolidColorBrush(Colors.Black);
                 }
-                if ( ( settings["AppbarColor"] as string ).Equals("Accent") )
+                if (settings["AppbarColor"] as string == "Accent" )
                 {
                     ApplicationBar.BackgroundColor = (Color)Resources["PhoneAccentColor"];
                 }
                 else {
-                    ApplicationBar.BackgroundColor = new Color() { A = 0, R = 0, G = 0, B = 0 };
+                    ApplicationBar.BackgroundColor = VNcolors.ColorDark;
                 }
             }
             

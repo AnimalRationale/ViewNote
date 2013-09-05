@@ -14,18 +14,41 @@ namespace ViewNote
 {
     public partial class SettingsPage : PhoneApplicationPage
     {
+        IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+
         public SettingsPage()
         {
             InitializeComponent();
+
+            if ( settings["AppBackColor"] as string == "userColor01" )
+            {
+                rbAppBackUser01.IsChecked = true;
+                rbAppBackBlack.IsChecked = false;
+            }
+            else
+            {
+                rbAppBackUser01.IsChecked = false;
+                rbAppBackBlack.IsChecked = true;
+            }
+
+            if ( settings["AppbarColor"] as string == "Accent" )
+            {
+                rbAppbarBlack.IsChecked = false;
+                rbAppbarAccent.IsChecked = true;
+            }
+            else
+            {
+                rbAppbarBlack.IsChecked = true;
+                rbAppbarAccent.IsChecked = false;
+            }
         }
 
         private void AppColorChanged(object sender, RoutedEventArgs e)
-        {
-            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+        {            
             String option = ( (RadioButton)sender ).Name;
             switch ( option )
             {
-                case "AppBackBlack":
+                case "rbAppBackBlack":
                     this.LayoutRoot.Background = new SolidColorBrush(Colors.Black);
                     if ( !settings.Contains("AppBackColor") )
                     {
@@ -38,33 +61,33 @@ namespace ViewNote
                     settings.Save();
                     break;
 
-                case "AppBackGray":
-                    this.LayoutRoot.Background = new SolidColorBrush(Colors.Gray);
+                case "rbAppBackUser01":
+                    this.LayoutRoot.Background = VNcolors.ColorAppBg;
                     if ( !settings.Contains("AppBackColor") )
                     {
-                        settings.Add("AppBackColor", "Gray");
+                        settings.Add("AppBackColor", "userColor01");
                     }
                     else
                     {
-                        settings["AppBackColor"] = "Gray";
+                        settings["AppBackColor"] = "userColor01";
                     }
                     settings.Save();
                     break;
 
-                case "AppbarBlack":
-                    ApplicationBar.BackgroundColor = new Color() { A = 0, R = 0, G = 0, B = 0 };
+                case "rbAppbarBlack":
+                    ApplicationBar.BackgroundColor = VNcolors.ColorDark;
                     if ( !settings.Contains("AppbarColor") )
                     {
                         settings.Add("ApprColor", "Dark");
                     }
                     else
                     {
-                        settings["AppbarkColor"] = "Dark";
+                        settings["AppbarColor"] = "Dark";
                     }
                     settings.Save();
                     break;
 
-                case "AppbarAccent":
+                case "rbAppbarAccent":
                     ApplicationBar.BackgroundColor = (Color)Resources["PhoneAccentColor"];
                     if ( !settings.Contains("AppbarColor") )
                     {
@@ -72,7 +95,7 @@ namespace ViewNote
                     }
                     else
                     {
-                        settings["AppbarkColor"] = "Accent";
+                        settings["AppbarColor"] = "Accent";
                     }
                     settings.Save();
                     break;

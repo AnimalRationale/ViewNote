@@ -45,10 +45,10 @@
                                Foreground="{StaticResource PhoneAccentBrush}" />
                     <StackPanel Orientation="Horizontal">
                         <RadioButton Checked="AppColorChanged"
-                                     Name="AppBackBlack"
+                                     Name="rbAppBackBlack"
                                      Content="Black" />
                         <RadioButton Checked="AppColorChanged"
-                                     Name="AppBackGray"
+                                     Name="rbAppBackUser01"
                                      Content="Gray" />
                     </StackPanel>
                     <TextBlock FontSize="36"
@@ -57,10 +57,10 @@
                                Foreground="{StaticResource PhoneAccentBrush}" />
                     <StackPanel Orientation="Horizontal">
                         <RadioButton Checked="AppColorChanged"
-                                     Name="AppbarBlack"
+                                     Name="rbAppbarBlack"
                                      Content="Dark color" />
                         <RadioButton Checked="AppColorChanged"
-                                     Name="AppbarAccent"
+                                     Name="rbAppbarAccent"
                                      Content="Phone accent color" />
                     </StackPanel>                  
                 </StackPanel>
