@@ -102,6 +102,11 @@ namespace ViewNote
             }
         }
 
+        private void DeleteConfChanged(object sender, RoutedEventArgs e)
+        {            
+            
+        }
+
         private void appbarAdd_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/AddNotePage.xaml", UriKind.Relative));
@@ -120,6 +125,10 @@ namespace ViewNote
         private void appbarDelete_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
         }
     }
 }

@@ -20,32 +20,7 @@ namespace ViewNote
         public MainPage()
         {
             InitializeComponent();
-            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
-            
-            if ( !settings.Contains("AppBackColor") )
-            {
-                settings.Add("AppBackColor", "Black");
-                settings.Add("AppbarColor", "Dark");
-                settings.Save();
-            }
-            else
-            {
-                if ( settings["AppBackColor"] as string == "userColor01" )
-                {
-                    this.LayoutRoot.Background = VNcolors.ColorAppBg;
-                }
-                else {
-                    this.LayoutRoot.Background = new SolidColorBrush(Colors.Black);
-                }
-                if (settings["AppbarColor"] as string == "Accent" )
-                {
-                    ApplicationBar.BackgroundColor = (Color)Resources["PhoneAccentColor"];
-                }
-                else {
-                    ApplicationBar.BackgroundColor = VNcolors.ColorDark;
-                }
-            }
-            
+            UseSettings();            
         }
 
         private void buttonLoad_Click(object sender, RoutedEventArgs e)
@@ -80,6 +55,37 @@ namespace ViewNote
 
         private void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+        }
+
+        private void UseSettings()
+        {
+            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+
+            if ( !settings.Contains("AppBackColor") )
+            {
+                settings.Add("AppBackColor", "Black");
+                settings.Add("AppbarColor", "Dark");
+                settings.Save();
+            }
+            else
+            {
+                if ( settings["AppBackColor"] as string == "userColor01" )
+                {
+                    this.LayoutRoot.Background = VNcolors.ColorAppBg;
+                }
+                else
+                {
+                    this.LayoutRoot.Background = new SolidColorBrush(Colors.Black);
+                }
+                if ( settings["AppbarColor"] as string == "Accent" )
+                {
+                    ApplicationBar.BackgroundColor = (Color)Resources["PhoneAccentColor"];
+                }
+                else
+                {
+                    ApplicationBar.BackgroundColor = VNcolors.ColorDark;
+                }
+            }
         }
     }
 }

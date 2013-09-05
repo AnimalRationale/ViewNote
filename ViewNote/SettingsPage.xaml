@@ -3,69 +3,108 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            mc:Ignorable="d"
+                            d:DesignWidth="480"
+                            d:DesignHeight="768"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             SupportedOrientations="PortraitOrLandscape"
                             Orientation="Portrait"
-                            mc:Ignorable="d"
                             shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0"
-                    Margin="12,17,0,28">
-            <TextBlock Text="ViewNote"
-                       Style="{StaticResource PhoneTextNormalStyle}" />
-            <TextBlock Text="Settings"
-                       Margin="9,-7,0,0"
-                       Style="{StaticResource PhoneTextTitle1Style}" />
-        </StackPanel>
+        <controls:Pivot Name="pivot_settings"
+                        Title="ViewNote Settings"
+                        SelectionChanged="pivot_SelectionChanged"
+                        Foreground="White"
+                        Background="Transparent">
 
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel"
-              Grid.Row="1"
-              Margin="12,0,12,0">
-            <ScrollViewer x:Name="SettingsPanel"
+            <controls:PivotItem Header="Appearance">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="AppearanceContentPanel"
                           Grid.Row="1"
                           Margin="12,0,12,0">
-                <StackPanel>
-                    <TextBlock FontSize="36"
-                               FontStretch="UltraExpanded"
-                               Text="Application background"
-                               Foreground="{StaticResource PhoneAccentBrush}" />
-                    <StackPanel Orientation="Horizontal">
-                        <RadioButton Checked="AppColorChanged"
-                                     Name="rbAppBackBlack"
-                                     Content="Black" />
-                        <RadioButton Checked="AppColorChanged"
-                                     Name="rbAppBackUser01"
-                                     Content="Gray" />
-                    </StackPanel>
-                    <TextBlock FontSize="36"
-                               FontStretch="UltraExpanded"
-                               Text="Appbar background"
-                               Foreground="{StaticResource PhoneAccentBrush}" />
-                    <StackPanel Orientation="Horizontal">
-                        <RadioButton Checked="AppColorChanged"
-                                     Name="rbAppbarBlack"
-                                     Content="Dark color" />
-                        <RadioButton Checked="AppColorChanged"
-                                     Name="rbAppbarAccent"
-                                     Content="Phone accent color" />
-                    </StackPanel>                  
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
+                        <ScrollViewer x:Name="AppearanceSettingsPanel"
+                                      Grid.Row="1"
+                                      Margin="12,0,12,0">
+                            <StackPanel>
+                                <TextBlock FontSize="36"
+                                           FontStretch="UltraExpanded"
+                                           Text="Application background"
+                                           Foreground="{StaticResource PhoneAccentBrush}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton Checked="AppColorChanged"
+                                                 Name="rbAppBackBlack"
+                                                 Content="Black" />
+                                    <RadioButton Checked="AppColorChanged"
+                                                 Name="rbAppBackUser01"
+                                                 Content="Gray" />
+                                </StackPanel>
+                                <TextBlock FontSize="36"
+                                           FontStretch="UltraExpanded"
+                                           Text="Appbar background"
+                                           Foreground="{StaticResource PhoneAccentBrush}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <RadioButton Checked="AppColorChanged"
+                                                 Name="rbAppbarBlack"
+                                                 Content="Dark color" />
+                                    <RadioButton Checked="AppColorChanged"
+                                                 Name="rbAppbarAccent"
+                                                 Content="Phone accent color" />
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="Options">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="OptionsContentPanel"
+                          Grid.Row="1"
+                          Margin="12,0,12,0">
+                        <ScrollViewer x:Name="OptionsSettingsPanel"
+                                      Grid.Row="1"
+                                      Margin="12,0,12,0">
+                            <StackPanel>
+                                <TextBlock FontSize="36"
+                                           FontStretch="UltraExpanded"
+                                           Text="Notes deleting"
+                                           Foreground="{StaticResource PhoneAccentBrush}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Checked="DeleteConfChanged"
+                                                  Name="cbDeleteAllConf"
+                                                  Content="Confirm all notes deleting" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox Checked="DeleteConfChanged"
+                                                  Name="cbDeleteNoteConf"
+                                                  Content="Confirm note deleting" />
+                                </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </controls:PivotItem>
+
+        </controls:Pivot>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True"
