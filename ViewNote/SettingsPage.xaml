@@ -90,13 +90,15 @@
                                            Foreground="{StaticResource PhoneAccentBrush}" />
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox Checked="DeleteConfChanged"
-                                                  Name="cbDeleteAllConf"
-                                                  Content="Confirm all notes deleting" />
+                                              Unchecked="DeleteConfChanged"
+                                              Name="cbDeleteAllConf"
+                                              Content="Confirm all notes deleting" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox Checked="DeleteConfChanged"
-                                                  Name="cbDeleteNoteConf"
-                                                  Content="Confirm note deleting" />
+                                              Unchecked="DeleteConfChanged"
+                                              Name="cbDeleteNoteConf"
+                                              Content="Confirm note deleting" />
                                 </StackPanel>
                             </StackPanel>
                         </ScrollViewer>

@@ -41,10 +41,20 @@ namespace ViewNote
                 rbAppbarBlack.IsChecked = true;
                 rbAppbarAccent.IsChecked = false;
             }
+
+            if ( settings["DeleteAllConf"] as string == "Yes" )
+            {
+                cbDeleteAllConf.IsChecked = true;
+            }
+
+            if ( settings["DeleteNoteConf"] as string == "Yes" )
+            {
+                cbDeleteNoteConf.IsChecked = true;
+            }
         }
 
         private void AppColorChanged(object sender, RoutedEventArgs e)
-        {            
+        {
             String option = ( (RadioButton)sender ).Name;
             switch ( option )
             {
@@ -103,8 +113,63 @@ namespace ViewNote
         }
 
         private void DeleteConfChanged(object sender, RoutedEventArgs e)
-        {            
-            
+        {
+            String option = ( (CheckBox)sender ).Name;
+            switch ( option )
+            {
+                case "cbDeleteAllConf":
+                    if ( !settings.Contains("DeleteAllConf") )
+                    {
+                        if ( cbDeleteAllConf.IsChecked == true )
+                        {
+                            settings.Add("DeleteAllConf", "Yes");
+                        }
+                        else
+                        {
+                            settings.Add("DeleteAllConf", "No");
+                        }
+                    }
+                    else
+                    {
+                        if ( cbDeleteAllConf.IsChecked == true )
+                        {
+                            settings["DeleteAllConf"] = "Yes";
+                        }
+                        else
+                        {
+                            settings["DeleteAllConf"] = "No";
+                        }
+                    }
+                    settings.Save();
+                    break;
+
+                case "cbDeleteNoteConf":
+                    if ( !settings.Contains("DeleteNoteConf") )
+                    {
+                        if ( cbDeleteAllConf.IsChecked == true )
+                        {
+                            settings.Add("DeleteNoteConf", "Yes");
+                        }
+                        else
+                        {
+                            settings.Add("DeleteNoteConf", "No");
+                        }
+                    }
+                    else
+                    {
+                        if ( cbDeleteAllConf.IsChecked == true )
+                        {
+                            settings["DeleteNoteConf"] = "Yes";
+                        }
+                        else
+                        {
+                            settings["DeleteNoteConf"] = "No";
+                        }
+                    }
+                    settings.Save();
+                    break;
+
+            }
         }
 
         private void appbarAdd_Click(object sender, EventArgs e)

@@ -43,25 +43,7 @@
                                        HorizontalAlignment="Center"
                                        TextWrapping="Wrap"
                                        Text=""
-                                       VerticalAlignment="Top" />
-                            <Button x:Name="buttonPopulate"
-                                    Content="Let's populate!"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Top"
-                                    Margin="121,95,116,0"
-                                    RenderTransformOrigin="0.495,-0.426"
-                                    Height="96"
-                                    Grid.RowSpan="2"
-                                    Click="buttonPopulate_Click" />
-                            <Button x:Name="buttonLoad"
-                                    Content="Let's load!"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Top"
-                                    Margin="121,292,116,0"
-                                    Grid.Row="1"
-                                    Width="219"
-                                    Height="88"
-                                    Click="buttonLoad_Click" />
+                                       VerticalAlignment="Top" />                            
                         </Grid>
                     </Grid>
                 </ScrollViewer>

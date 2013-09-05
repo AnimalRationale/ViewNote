@@ -8,7 +8,7 @@
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
-                            SupportedOrientations="Portrait"
+                            SupportedOrientations="PortraitOrLandscape"
                             Orientation="Portrait"
                             mc:Ignorable="d"
                             shell:SystemTray.IsVisible="True">
@@ -24,15 +24,15 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0"
                     Margin="12,17,0,28">
-            <TextBlock Text="ViewNote"
+            <TextBlock Text="ViewNote Add new"
                        Style="{StaticResource PhoneTextNormalStyle}" />
-            <TextBlock Text="Add note"
+            <TextBlock Text="Note"
                        Margin="9,-7,0,0"
                        Style="{StaticResource PhoneTextTitle1Style}" />
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel"
+        <Grid x:Name="AddNoteContentPanel"
               Grid.Row="1"
               Margin="12,0,12,0">
 

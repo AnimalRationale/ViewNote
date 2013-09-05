@@ -69,5 +69,9 @@ namespace ViewNote
                 }
             }
         }
+
+        private void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
     }
 }
