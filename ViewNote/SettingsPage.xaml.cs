@@ -146,7 +146,7 @@ namespace ViewNote
                 case "cbDeleteNoteConf":
                     if ( !settings.Contains("DeleteNoteConf") )
                     {
-                        if ( cbDeleteAllConf.IsChecked == true )
+                        if ( cbDeleteNoteConf.IsChecked == true )
                         {
                             settings.Add("DeleteNoteConf", "Yes");
                         }
@@ -157,7 +157,7 @@ namespace ViewNote
                     }
                     else
                     {
-                        if ( cbDeleteAllConf.IsChecked == true )
+                        if ( cbDeleteNoteConf.IsChecked == true )
                         {
                             settings["DeleteNoteConf"] = "Yes";
                         }
@@ -189,7 +189,14 @@ namespace ViewNote
 
         private void appbarDelete_Click(object sender, EventArgs e)
         {
-
+            if ( !settings.Contains("DeleteAllConf") || settings["DeleteAllConf"] as string == "Yes" )
+            {
+                MessageBox.Show("ALL notes will be irreversibly deleted.", "Deleting ALL notes", MessageBoxButton.OKCancel);
+            }
+            else
+            {
+                MessageBox.Show("ALL NOTES DELETED!");
+            }
         }
 
         private void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
