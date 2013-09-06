@@ -16,6 +16,8 @@ namespace ViewNote
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+
         // Constructor
         public MainPage()
         {
@@ -41,7 +43,14 @@ namespace ViewNote
 
         private void appbarDelete_Click(object sender, EventArgs e)
         {
-
+            if ( !settings.Contains("DeleteAllConf") || settings["DeleteAllConf"] as string == "Yes" )
+            {
+                MessageBox.Show("ALL notes will be irreversibly deleted.", "Deleting ALL notes", MessageBoxButton.OKCancel);
+            }
+            else
+            {
+                MessageBox.Show("ALL NOTES DELETED!");
+            }
         }
 
         private void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -49,8 +58,7 @@ namespace ViewNote
         }
 
         private void UseSettings()
-        {
-            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+        {            
 
             if ( !settings.Contains("AppBackColor") )
             {

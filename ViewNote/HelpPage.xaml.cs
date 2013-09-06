@@ -14,6 +14,8 @@ namespace ViewNote
 {
     public partial class HelpPage : PhoneApplicationPage
     {
+        IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+
         public HelpPage()
         {
             InitializeComponent();
@@ -37,11 +39,18 @@ namespace ViewNote
 
         private void appbarDelete_Click(object sender, EventArgs e)
         {
+            if ( !settings.Contains("DeleteAllConf") || settings["DeleteAllConf"] as string == "Yes" )
+            {
+                MessageBox.Show("ALL notes will be irreversibly deleted.", "Deleting ALL notes", MessageBoxButton.OKCancel);
+            }
+            else
+            {
+                MessageBox.Show("ALL NOTES DELETED!");
+            }
         }
 
         private void UseSettings()
-        {
-            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+        {           
 
             if ( !settings.Contains("AppBackColor") )
             {
