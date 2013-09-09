@@ -108,6 +108,22 @@ namespace ViewNote
         {
         }
 
+        private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        {
+            if ( e.Orientation == PageOrientation.Landscape || e.Orientation == PageOrientation.LandscapeLeft || e.Orientation == PageOrientation.LandscapeRight )
+            {
+                pivotAddNoteText.Header = null;
+                pivotAddNotePhoto.Header = null;
+                pivotAddNote.Margin = new Thickness(0, -150, 0, 0);
+            }
+            else
+            {
+                pivotAddNoteText.Header = "Note";
+                pivotAddNoteText.Header = "Photo";
+                pivotAddNote.Margin = new Thickness(0);
+            }
+        }
+
         private void AddPhoto_Click(object sender, RoutedEventArgs e)
         {
             cameraCaptureTask.Show();

@@ -12,6 +12,7 @@
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             SupportedOrientations="PortraitOrLandscape"
                             Orientation="Portrait"
+                            OrientationChanged="PhoneApplicationPage_OrientationChanged"
                             mc:Ignorable="d"
                             shell:SystemTray.IsVisible="True">
 
@@ -20,13 +21,14 @@
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
 
-        <controls:Pivot Name="pivotAddNote"
+        <controls:Pivot x:Name="pivotAddNote"
                         Title="ViewNote Add new"
                         SelectionChanged="pivot_SelectionChanged"
                         Foreground="White"
                         Background="Transparent">
 
-            <controls:PivotItem Header="Note">
+            <controls:PivotItem x:Name="pivotAddNoteText"
+                                Header="Note">
                 <ScrollViewer x:Name="addNoteElementsPanel"
                               Grid.Row="1"
                               Margin="12,0,12,0">
@@ -133,25 +135,30 @@
                 </ScrollViewer>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="Photo">
+            <controls:PivotItem x:Name="pivotAddNotePhoto"
+                                Header="Photo">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <!--ContentPanel - place additional content here-->
-                    <Grid x:Name="addPhotoContentPanel"
-                          Grid.Row="1"
-                          Margin="12,0,12,0">
-                        <StackPanel>
-                            <Image x:Name="addedPhoto"
-                                   Source=""
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Top"
-                                   Stretch="Fill" />
-                        </StackPanel>
-                    </Grid>
+                    <ScrollViewer x:Name="addNotePhotoPanel"
+                                  Grid.Row="1"
+                                  Margin="12,0,12,0">
+                        <!--ContentPanel - place additional content here-->
+                        <Grid x:Name="addPhotoContentPanel"
+                              Grid.Row="1"
+                              Margin="12,0,12,0">
+                            <StackPanel>
+                                <Image x:Name="addedPhoto"
+                                       Source=""
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Top"
+                                       Stretch="Fill" />
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
                 </Grid>
             </controls:PivotItem>
 
