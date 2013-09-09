@@ -3,6 +3,7 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+                            xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,89 +16,149 @@
                             shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
+
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0"
-                    Margin="12,17,0,28">
-            <TextBlock Text="ViewNote Add new"
-                       Style="{StaticResource PhoneTextNormalStyle}" />
-            <TextBlock Text="Note"
-                       Margin="9,-7,0,0"
-                       Style="{StaticResource PhoneTextTitle1Style}" />
-        </StackPanel>
+        <controls:Pivot Name="pivotAddNote"
+                        Title="ViewNote Add new"
+                        SelectionChanged="pivot_SelectionChanged"
+                        Foreground="White"
+                        Background="Transparent">
 
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="AddNoteContentPanel"
-              Grid.Row="1"
-              Margin="12,0,12,0">
-            <ScrollViewer x:Name="AddNoteElementsPanel"
+            <controls:PivotItem Header="Note">
+                <ScrollViewer x:Name="addNoteElementsPanel"
+                              Grid.Row="1"
+                              Margin="12,0,12,0">
+
+                    <StackPanel>
+                        <Grid Height="140">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="205" />
+                                <ColumnDefinition Width="118*" />
+                                <ColumnDefinition Width="109*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="Category"
+                                       Foreground="{StaticResource PhoneAccentBrush}"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Top"
+                                       Margin="0,25,0,0"
+                                       Height="27"
+                                       Width="81" />
+                            <toolkit:ListPicker Grid.Row="0"
+                                                Grid.Column="0"
+                                                x:Name="categoriesListPicker"
+                                                DisplayMemberPath="Name"
+                                                Margin="10,57,1,10"
+                                                RenderTransformOrigin="0.489,0.903"
+                                                Grid.RowSpan="2" />
+                            <Button x:Name="addPhoto"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Background="{StaticResource PhoneAccentBrush}"
+                                    BorderBrush="{StaticResource PhoneAccentBrush}"
+                                    HorizontalAlignment="Right"
+                                    Width="121"
+                                    RenderTransformOrigin="0.497,-0.306"
+                                    Grid.RowSpan="2"
+                                    Margin="0,20,0,10"
+                                    Click="AddPhoto_Click"
+                                    Grid.ColumnSpan="2">
+                                <StackPanel>
+                                    <Image Source="/Images/appbar.feature.camera.rest.png"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"
+                                           Stretch="Fill" />
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="addImage"
+                                    Grid.Row="0"
+                                    Background="{StaticResource PhoneAccentBrush}"
+                                    BorderBrush="{StaticResource PhoneAccentBrush}"
+                                    HorizontalAlignment="Right"
+                                    Width="121"
+                                    RenderTransformOrigin="0.497,-0.306"
+                                    Grid.RowSpan="2"
+                                    Margin="0,20,0,10"
+                                    Click="addImage_Click"
+                                    Grid.ColumnSpan="2">
+                                <StackPanel>
+                                    <Image Source="/Images/folder.png"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"
+                                           Stretch="Fill" />
+                                </StackPanel>
+                            </Button>
+                            <TextBlock x:Name="addPhotoStatus"
+                                       Grid.Row="1"
+                                       Grid.Column="2"
+                                       HorizontalAlignment="Right"
+                                       Width="121"
+                                       RenderTransformOrigin="0.497,-0.306"
+                                       Margin="0,15,-14,5"
+                                       FontSize="16"
+                                       FontStretch="UltraExpanded"
+                                       Text="" />
+                            <TextBlock x:Name="addImageStatus"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Right"
+                                       Width="121"
+                                       RenderTransformOrigin="0.497,-0.306"
+                                       Margin="0,15,-14,5"
+                                       FontSize="16"
+                                       FontStretch="UltraExpanded"
+                                       Text="" />
+                        </Grid>
+
+                        <TextBlock Text="Title"
+                                   Foreground="{StaticResource PhoneAccentBrush}"
+                                   Margin="0,5,0,0" />
+                        <TextBox x:Name="newNoteTitleTextBox" />
+
+                        <TextBlock Text="Note"
+                                   Foreground="{StaticResource PhoneAccentBrush}"
+                                   TextWrapping="Wrap" />
+                        <TextBox x:Name="newNoteContentTextBox"
+                                 AcceptsReturn="True"
+                                 Height="160"
+                                 TextWrapping="Wrap" />
+                    </StackPanel>
+                </ScrollViewer>
+            </controls:PivotItem>
+
+            <controls:PivotItem Header="Photo">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--ContentPanel - place additional content here-->
+                    <Grid x:Name="addPhotoContentPanel"
                           Grid.Row="1"
                           Margin="12,0,12,0">
-
-                <StackPanel>
-                    <Grid Height="120">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="239" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="0"
-                                   Text="Category"
-                                   HorizontalAlignment="Left"
+                        <StackPanel>
+                            <Image x:Name="addedPhoto"
+                                   Source=""
+                                   HorizontalAlignment="Center"
                                    VerticalAlignment="Top"
-                                   Height="27"
-                                   Width="81" />
-                        <toolkit:ListPicker Grid.Row="0"
-                                            Grid.Column="0"
-                                            x:Name="categoriesListPicker"
-                                            DisplayMemberPath="Name"
-                                            Margin="10,32,153,12"
-                                            RenderTransformOrigin="0.489,0.903"
-                                            Grid.ColumnSpan="2">
-                        </toolkit:ListPicker>
-                        <Button Grid.Row="0"
-                                Grid.Column="1"
-                                Background="{StaticResource PhoneAccentBrush}"
-                                BorderBrush="{StaticResource PhoneAccentBrush}"
-                                HorizontalAlignment="Right"
-                                Width="121"
-                                Height="110"
-                                RenderTransformOrigin="0.497,-0.306"
-                                Grid.RowSpan="2"
-                                Margin="0,10,0,0">
-                            <StackPanel>
-                                <Image Source="/Images/appbar.feature.camera.rest.png"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Top"
-                                       Stretch="Fill" />
-                            </StackPanel>
-                        </Button>
+                                   Stretch="Fill" />
+                        </StackPanel>
                     </Grid>
+                </Grid>
+            </controls:PivotItem>
 
-                    <TextBlock Text="Title"
-                               Margin="0,5,0,0" />
-                    <TextBox x:Name="newNoteTitleTextBox" />
+        </controls:Pivot>
 
-                    <TextBlock Text="Note"
-                               TextWrapping="Wrap" />
-                    <TextBox x:Name="newNoteContentTextBox"
-                             AcceptsReturn="True"
-                             Height="160"
-                             TextWrapping="Wrap" />
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
     </Grid>
+
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True"
                               IsMenuEnabled="True">
