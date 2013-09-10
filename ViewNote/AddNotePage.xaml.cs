@@ -114,12 +114,20 @@ namespace ViewNote
             {
                 pivotAddNoteText.Header = null;
                 pivotAddNotePhoto.Header = null;
+                buttonAddPhoto.Width = 181;
+                buttonAddImage.Width = 181;
+                iconAddPhoto.Margin = new Thickness(0, -28, 0, 0);
+                iconAddImage.Margin = new Thickness(0, -28, 0, 0);
                 pivotAddNote.Margin = new Thickness(0, -150, 0, 0);
             }
             else
             {
                 pivotAddNoteText.Header = "Note";
                 pivotAddNoteText.Header = "Photo";
+                buttonAddPhoto.Width = 121;
+                buttonAddImage.Width = 121;
+                iconAddPhoto.Margin = new Thickness(0, 0, 0, 0);
+                iconAddImage.Margin = new Thickness(0, 0, 0, 0);
                 pivotAddNote.Margin = new Thickness(0);
             }
         }

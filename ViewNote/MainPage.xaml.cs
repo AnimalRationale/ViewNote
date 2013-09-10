@@ -21,10 +21,10 @@ namespace ViewNote
         // Constructor
         public MainPage()
         {
-            InitializeComponent();            
+            InitializeComponent();
             UseSettings();
-           
-        }        
+
+        }
 
         private void appbarAdd_Click(object sender, EventArgs e)
         {
@@ -57,8 +57,28 @@ namespace ViewNote
         {
         }
 
+        private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
+        {
+            if ( e.Orientation == PageOrientation.Landscape || e.Orientation == PageOrientation.LandscapeLeft || e.Orientation == PageOrientation.LandscapeRight )
+            {
+                pivot1.Header = null;
+                pivot2.Header = null;
+                pivot3.Header = null;
+                pivot4.Header = null;
+                pivotMain.Margin = new Thickness(0, -150, 0, 0);                
+            }
+            else
+            {
+                pivot1.Header = "All notes";
+                pivot2.Header = "Memos";
+                pivot3.Header = "Travel";
+                pivot4.Header = "Fun";
+                pivotMain.Margin = new Thickness(0, 0, 0, 0);                
+            }
+        }
+
         private void UseSettings()
-        {            
+        {
 
             if ( !settings.Contains("AppBackColor") )
             {
@@ -73,7 +93,7 @@ namespace ViewNote
             else
             {
                 infoText01.Text = " AppBackColor: " + settings["AppBackColor"];
-                infoText01.Text =  infoText01.Text + "\n AppbarColor: " + settings["AppbarColor"];
+                infoText01.Text = infoText01.Text + "\n AppbarColor: " + settings["AppbarColor"];
                 infoText01.Text = infoText01.Text + "\n DeleteAllConf: " + settings["DeleteAllConf"];
                 infoText01.Text = infoText01.Text + "\n DeleteNoteConf: " + settings["DeleteNoteConf"];
 

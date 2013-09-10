@@ -14,19 +14,42 @@
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             SupportedOrientations="PortraitOrLandscape"
                             Orientation="Portrait"
+                            OrientationChanged="PhoneApplicationPage_OrientationChanged"
                             shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
 
-        <controls:Pivot Name="pivot"
+        <controls:Pivot Name="pivotMain"
                         Title="ViewNote Home"
                         SelectionChanged="pivot_SelectionChanged"
                         Foreground="White"
                         Background="Transparent">
+            <!--<controls:Pivot.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Background="Transparent"
+                                Margin="0">
+                        <TextBlock FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}"
+                                   Margin="0"
+                                   Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </controls:Pivot.HeaderTemplate>-->
 
-            <controls:PivotItem Header="All notes">
+            <!--Name="pivotMain"
+                        Title="ViewNote Home"
+                        SelectionChanged="pivot_SelectionChanged"
+                        Foreground="White"
+                        Background="Transparent">-->
+
+            <controls:PivotItem x:Name="pivot1"
+                                Header="All Notes">
+                <!--<controls:PivotItem.Header>
+                    <Border x:Name="pivot1">
+                        <TextBlock  Text="All Notes" />
+                    </Border>
+                </controls:PivotItem.Header>-->
                 <ScrollViewer>
                     <Grid>
                         <Grid.RowDefinitions>
@@ -43,13 +66,19 @@
                                        HorizontalAlignment="Center"
                                        TextWrapping="Wrap"
                                        Text=""
-                                       VerticalAlignment="Top" />                            
+                                       VerticalAlignment="Top" />
                         </Grid>
                     </Grid>
                 </ScrollViewer>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="Memos">
+            <controls:PivotItem x:Name="pivot2"
+                                Header="Memos">
+                <!--<controls:PivotItem.Header>
+                    <Border x:Name="pivot2">
+                        <TextBlock  Text="Memos" />
+                    </Border>
+                </controls:PivotItem.Header>-->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -65,7 +94,13 @@
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="Travel">
+            <controls:PivotItem x:Name="pivot3"
+                                Header="Travel">
+                <!--<controls:PivotItem.Header>
+                    <Border x:Name="pivot3">
+                        <TextBlock  Text="Travel" />
+                    </Border>
+                </controls:PivotItem.Header>-->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -81,7 +116,13 @@
                 </Grid>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="Fun">
+            <controls:PivotItem x:Name="pivot4"
+                                Header="Fun">
+                <!--<controls:PivotItem.Header>
+                    <Border x:Name="pivot4">
+                        <TextBlock  Text="Fun" />
+                    </Border>
+                </controls:PivotItem.Header>-->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

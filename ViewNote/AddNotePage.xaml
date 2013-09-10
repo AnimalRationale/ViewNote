@@ -60,7 +60,7 @@
                                                 Margin="10,57,1,10"
                                                 RenderTransformOrigin="0.489,0.903"
                                                 Grid.RowSpan="2" />
-                            <Button x:Name="addPhoto"
+                            <Button x:Name="buttonAddPhoto"
                                     Grid.Row="0"
                                     Grid.Column="1"
                                     Background="{StaticResource PhoneAccentBrush}"
@@ -73,13 +73,14 @@
                                     Click="AddPhoto_Click"
                                     Grid.ColumnSpan="2">
                                 <StackPanel>
-                                    <Image Source="/Images/appbar.feature.camera.rest.png"
+                                    <Image x:Name="iconAddPhoto"
+                                           Source="/Images/feature.camera.png"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Top"
                                            Stretch="Fill" />
                                 </StackPanel>
                             </Button>
-                            <Button x:Name="addImage"
+                            <Button x:Name="buttonAddImage"
                                     Grid.Row="0"
                                     Background="{StaticResource PhoneAccentBrush}"
                                     BorderBrush="{StaticResource PhoneAccentBrush}"
@@ -91,7 +92,8 @@
                                     Click="addImage_Click"
                                     Grid.ColumnSpan="2">
                                 <StackPanel>
-                                    <Image Source="/Images/folder.png"
+                                    <Image x:Name="iconAddImage"
+                                           Source="/Images/folder.png"
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Top"
                                            Stretch="Fill" />
