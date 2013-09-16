@@ -17,6 +17,43 @@
                             OrientationChanged="PhoneApplicationPage_OrientationChanged"
                             shell:SystemTray.IsVisible="True">
 
+    <phone:PhoneApplicationPage.Resources>
+        
+        <DataTemplate x:Key="ViewNoteListBoxItemTemplate">
+            <Grid HorizontalAlignment="Stretch"
+                  Width="420">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="{Binding VNoteTitle}"
+                           FontSize="{StaticResource PhoneFontSizeLarge}"
+                           Grid.Column="1"
+                           Grid.ColumnSpan="2"
+                           VerticalAlignment="Top"
+                           Margin="-36, 12, 0, 0" />
+
+                <Button Grid.Column="2"
+                        x:Name="deleteTaskButton"
+                        BorderThickness="0"
+                        Margin="0, -18, 0, 0">
+                        <!--Click="deleteTaskButton_Click">-->
+                    <Image Source="/Images/appbar.delete.rest.png"
+                           Height="75"
+                           Width="75" />
+                </Button>
+
+                <CheckBox IsChecked="{Binding IsFavourite, Mode=TwoWay}"
+                          Grid.Column="3"
+                          VerticalAlignment="Top" />                
+            </Grid>
+        </DataTemplate>
+        
+    </phone:PhoneApplicationPage.Resources>
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
@@ -25,39 +62,53 @@
                         Title="ViewNote Home"
                         SelectionChanged="pivot_SelectionChanged"
                         Foreground="White"
-                        Background="Transparent">
-            <!--<controls:Pivot.HeaderTemplate>
-                <DataTemplate>
-                    <StackPanel Background="Transparent"
-                                Margin="0">
-                        <TextBlock FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}"
-                                   Margin="0"
-                                   Text="{Binding}" />
-                    </StackPanel>
-                </DataTemplate>
-            </controls:Pivot.HeaderTemplate>-->
-
-            <!--Name="pivotMain"
-                        Title="ViewNote Home"
-                        SelectionChanged="pivot_SelectionChanged"
-                        Foreground="White"
-                        Background="Transparent">-->
+                        Background="Transparent">            
 
             <controls:PivotItem x:Name="pivot1"
                                 Header="All Notes">
-                <!--<controls:PivotItem.Header>
-                    <Border x:Name="pivot1">
-                        <TextBlock  Text="All Notes" />
-                    </Border>
-                </controls:PivotItem.Header>-->
+                <ListBox x:Name="allNotesListBox"
+                         ItemsSource="{Binding AllNotesItems}"
+                         Margin="12, 0, 12, 0"
+                         Width="440"
+                         ItemTemplate="{StaticResource ViewNoteListBoxItemTemplate}" />
+            </controls:PivotItem>
+
+            <controls:PivotItem x:Name="pivot2"
+                                Header="Memos">
+                <ListBox x:Name="memoNotesListBox"
+                         ItemsSource="{Binding MemoNotesItems}"
+                         Margin="12, 0, 12, 0"
+                         Width="440"
+                         ItemTemplate="{StaticResource ViewNoteListBoxItemTemplate}" />
+            </controls:PivotItem>
+
+            <controls:PivotItem x:Name="pivot3"
+                                Header="Travel">
+                <ListBox x:Name="travelNotesListBox"
+                         ItemsSource="{Binding TravelNotesItems}"
+                         Margin="12, 0, 12, 0"
+                         Width="440"
+                         ItemTemplate="{StaticResource ViewNoteListBoxItemTemplate}" />
+            </controls:PivotItem>
+
+            <controls:PivotItem x:Name="pivot4"
+                                Header="Fun">
+                <ListBox x:Name="funNotesListBox"
+                         ItemsSource="{Binding FunNotesItems}"
+                         Margin="12, 0, 12, 0"
+                         Width="440"
+                         ItemTemplate="{StaticResource ViewNoteListBoxItemTemplate}" />            
+            </controls:PivotItem>
+
+            <controls:PivotItem x:Name="pivot5"
+                                Header="Debug">
+
                 <ScrollViewer>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-
-                        <!--ContentPanel - place additional content here-->
 
                         <Grid x:Name="ContentPanel01"
                               Grid.Row="1"
@@ -71,73 +122,7 @@
                     </Grid>
                 </ScrollViewer>
             </controls:PivotItem>
-
-            <controls:PivotItem x:Name="pivot2"
-                                Header="Memos">
-                <!--<controls:PivotItem.Header>
-                    <Border x:Name="pivot2">
-                        <TextBlock  Text="Memos" />
-                    </Border>
-                </controls:PivotItem.Header>-->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <!--ContentPanel - place additional content here-->
-                    <Grid x:Name="ContentPanel02"
-                          Grid.Row="1"
-                          Margin="12,0,12,0">
-
-                    </Grid>
-                </Grid>
-            </controls:PivotItem>
-
-            <controls:PivotItem x:Name="pivot3"
-                                Header="Travel">
-                <!--<controls:PivotItem.Header>
-                    <Border x:Name="pivot3">
-                        <TextBlock  Text="Travel" />
-                    </Border>
-                </controls:PivotItem.Header>-->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <!--ContentPanel - place additional content here-->
-                    <Grid x:Name="ContentPanel03"
-                          Grid.Row="1"
-                          Margin="12,0,12,0">
-
-                    </Grid>
-                </Grid>
-            </controls:PivotItem>
-
-            <controls:PivotItem x:Name="pivot4"
-                                Header="Fun">
-                <!--<controls:PivotItem.Header>
-                    <Border x:Name="pivot4">
-                        <TextBlock  Text="Fun" />
-                    </Border>
-                </controls:PivotItem.Header>-->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <!--ContentPanel - place additional content here-->
-                    <Grid x:Name="ContentPanel04"
-                          Grid.Row="1"
-                          Margin="12,0,12,0">
-
-                    </Grid>
-                </Grid>
-            </controls:PivotItem>
-
+            
         </controls:Pivot>
 
     </Grid>
@@ -159,13 +144,7 @@
             <shell:ApplicationBarIconButton x:Name="appbarDelete"
                                             IconUri="/Images/appbar.delete.rest.png"
                                             Text="Delete all"
-                                            Click="appbarDelete_Click" />
-            <!-- <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="Add note to list"/>                
-                <shell:ApplicationBarMenuItem Text="Help and About ViewNote"/>
-                <shell:ApplicationBarMenuItem Text="Settings"/>
-                <shell:ApplicationBarMenuItem Text="Delete all notes"/>
-            </shell:ApplicationBar.MenuItems> -->
+                                            Click="appbarDelete_Click" />           
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 </phone:PhoneApplicationPage>
