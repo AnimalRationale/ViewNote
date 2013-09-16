@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.IO.IsolatedStorage;
+using ViewNote.Model;
 
 namespace ViewNote
 {
@@ -23,7 +24,15 @@ namespace ViewNote
         {
             InitializeComponent();
             UseSettings();
+            // Set the page DataContext property to the ViewModel.
+            this.DataContext = App.ViewModel;
 
+        }
+
+        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            // Save changes to the database.
+            App.ViewModel.SaveChangesToDB();
         }
 
         private void appbarAdd_Click(object sender, EventArgs e)

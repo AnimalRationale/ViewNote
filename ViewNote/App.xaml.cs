@@ -12,6 +12,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using ViewNote.Model;
+using ViewNote.ViewModel;
 
 namespace ViewNote
 {
@@ -26,6 +28,14 @@ namespace ViewNote
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
+
+        // The static ViewModel, to be used across the application.
+        private static ViewNoteViewModel viewModel;
+        public static ViewNoteViewModel ViewModel
+        {
+            get { return viewModel; }
+        }
+
         public App()
         {
             // Global handler for uncaught exceptions. 
@@ -57,6 +67,32 @@ namespace ViewNote
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+            // Specify the local database connection string.
+            string DBConnectionString = "Data Source=isostore:/ViewNote.sdf";
+
+            // Create the database if it does not exist.
+            using ( VNoteDataContext db = new VNoteDataContext(DBConnectionString) )
+            {
+                if ( db.DatabaseExists() == false )
+                {
+                    // Create the local database.
+                    db.CreateDatabase();
+
+                    // Prepopulate the categories.
+                    db.Categories.InsertOnSubmit(new VNoteCategory { Name = "Memo" });
+                    db.Categories.InsertOnSubmit(new VNoteCategory { Name = "Travel" });
+                    db.Categories.InsertOnSubmit(new VNoteCategory { Name = "Fun" });
+
+                    // Save categories to the database.
+                    db.SubmitChanges();
+                }
+            }
+
+            // Create the ViewModel object.
+            viewModel = new ViewNoteViewModel(DBConnectionString);
+
+            // Query the local database and load observable collections.
+            viewModel.LoadCollectionsFromDatabase();
         }
 
         // Code to execute when the application is launching (eg, from Start)

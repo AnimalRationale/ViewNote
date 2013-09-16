@@ -11,6 +11,7 @@ using System.IO.IsolatedStorage;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.Tasks;
+using ViewNote.Model;
 
 
 namespace ViewNote
@@ -23,6 +24,8 @@ namespace ViewNote
         public AddNote()
         {
             InitializeComponent();
+            // Set the page DataContext property to the ViewModel.
+            this.DataContext = App.ViewModel;
             UseSettings();
             cameraCaptureTask = new CameraCaptureTask();
             cameraCaptureTask.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);

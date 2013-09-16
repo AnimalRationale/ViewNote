@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
 
-namespace LocalDatabaseSample.Model
+namespace ViewNote.Model
 {
     public class VNoteDataContext : DataContext
     {
