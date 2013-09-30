@@ -81,7 +81,7 @@
                             <RichTextBox Background="Transparent"
                                          Style="{StaticResource rtBox}">
                                 <Paragraph Foreground="Cyan">
-                                    <Run Text="With "/>
+                                    <Run Text="With " />
                                     <Bold Foreground="GhostWhite">ViewNote</Bold>
                                     <Run Text=" you can make simple text notes with attached image from your phone's Media Library or with new photo." />
                                 </Paragraph>
@@ -100,7 +100,7 @@
                                 </Paragraph>
                                 <Paragraph>
                                     <Run Text="3. Save your note by tapping" />
-                                    <Italic Foreground="LightBlue"> check button</Italic>
+                                    <Italic Foreground="LightBlue">check button</Italic>
                                     <Run Text=" on ApplicationBar." />
                                 </Paragraph>
                                 <Paragraph>
@@ -117,32 +117,68 @@
                                 </Paragraph>
                                 <Paragraph Foreground="Red">
                                     <Bold>Deleting ALL notes:</Bold>
-                                </Paragraph>                                
+                                </Paragraph>
                                 <Paragraph>
                                     <Run Text="Tap " />
                                     <Italic Foreground="LightBlue">trashcan icon</Italic>
                                     <Run Text=" on ApplicationBar." />
                                 </Paragraph>
-                            </RichTextBox>                            
+                            </RichTextBox>
                         </Grid>
                     </Grid>
                 </ScrollViewer>
             </controls:PivotItem>
 
             <controls:PivotItem Header="About">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                    <!--ContentPanel - place additional content here-->
-                    <Grid x:Name="ContentPanel02"
-                          Grid.Row="1"
-                          Margin="12,0,12,0">
-
+                        <!--ContentPanel - place additional content here-->
+                        <Grid x:Name="ContentPanel02"
+                              Grid.Row="0"
+                              Margin="12,0,12,0">
+                            <StackPanel>
+                                <RichTextBox Background="Transparent"
+                                             Style="{StaticResource rtBox}">
+                                    <Paragraph Foreground="LemonChiffon">
+                                        <Bold Foreground="LemonChiffon">ViewNote</Bold>
+                                        <Run Text=" (c) 2013" />
+                                    </Paragraph>
+                                    <Paragraph></Paragraph>
+                                    <Paragraph Foreground="LightBlue">
+                                        <Run Text="Author: " />
+                                        <Bold Foreground="GhostWhite">Wojciech Mardyla</Bold>
+                                        <Run Text="" />
+                                    </Paragraph>
+                                    <Paragraph></Paragraph>
+                                    <Paragraph Foreground="LightBlue">
+                                        <Run Text="Version: " />
+                                        <Bold Foreground="GhostWhite">T1.00WP</Bold>
+                                    </Paragraph>
+                                </RichTextBox>
+                                <TextBlock Text="Write message:"
+                                           Margin="12,30,0,0"
+                                           Foreground="{StaticResource PhoneAccentBrush}"
+                                           TextWrapping="Wrap" />
+                                <TextBox x:Name="msgToAuthor"
+                                         AcceptsReturn="True"
+                                         Height="160"
+                                         TextWrapping="Wrap" />
+                                <Button Background="{StaticResource PhoneAccentBrush}"
+                                        BorderBrush="{StaticResource PhoneAccentBrush}"
+                                        FontSize="22"
+                                        Margin="0,0,0,0"
+                                        FontStretch="UltraExpanded"
+                                        Content="Send message to author"
+                                        Click="sendMsgToAuthor_Click"/>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </ScrollViewer>
             </controls:PivotItem>
 
         </controls:Pivot>

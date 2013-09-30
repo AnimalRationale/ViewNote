@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using System.IO.IsolatedStorage;
 using System.Windows.Media;
+using Microsoft.Phone.Tasks;
 
 namespace ViewNote
 {
@@ -20,6 +21,15 @@ namespace ViewNote
         {
             InitializeComponent();
             UseSettings();
+        }
+
+        private void sendMsgToAuthor_Click(object sender, RoutedEventArgs e)
+        {
+            EmailComposeTask emailComposeTask = new EmailComposeTask();
+            emailComposeTask.Subject = "Message from ViewNote user";
+            emailComposeTask.Body = msgToAuthor.Text;
+            emailComposeTask.To = "wojciech.mardyla@gmail.com";
+            emailComposeTask.Show(); ;
         }
 
         private void appbarAdd_Click(object sender, EventArgs e)
