@@ -108,7 +108,7 @@ namespace ViewNote
                 pivot2.Header = null;
                 pivot3.Header = null;
                 pivot4.Header = null;
-                pivotMain.Margin = new Thickness(0, -150, 0, 0);
+                pivotMain.Margin = new Thickness(0, -150, 0, 0);                
             }
             else
             {

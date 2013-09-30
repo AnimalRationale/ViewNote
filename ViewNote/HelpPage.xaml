@@ -16,6 +16,45 @@
                             Orientation="Portrait"
                             shell:SystemTray.IsVisible="True">
 
+    <phone:PhoneApplicationPage.Resources>
+        <Style TargetType="RichTextBox"
+               x:Key="rtBox">
+            <Setter Property="FontSize"
+                    Value="{StaticResource PhoneFontSizeNormal}" />
+            <Setter Property="Foreground"
+                    Value="{StaticResource PhoneForegroundBrush}" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="BorderBrush"
+                    Value="Transparent" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RichTextBox">
+                        <Grid Background="Transparent">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Margin="{StaticResource PhoneHorizontalMargin}">
+                                <ContentControl x:Name="ContentElement"
+                                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                Padding="{TemplateBinding Padding}" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
@@ -39,11 +78,57 @@
                         <Grid x:Name="HelpContentPanel01"
                               Grid.Row="1"
                               Margin="12,0,12,0">
-                            <TextBlock x:Name="infoText01"
+                            <RichTextBox Background="Transparent"
+                                         Style="{StaticResource rtBox}">
+                                <Paragraph Foreground="Cyan">
+                                    <Run Text="With "/>
+                                    <Bold Foreground="GhostWhite">ViewNote</Bold>
+                                    <Run Text=" you can make simple text notes with attached image from your phone's Media Library or with new photo." />
+                                </Paragraph>
+                                <Paragraph>
+                                </Paragraph>
+                                <Paragraph Foreground="YellowGreen">
+                                    <Bold>Adding new note:</Bold>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="1. Tap" />
+                                    <Italic Foreground="LightBlue">plus button</Italic>
+                                    <Run Text=" on ApplicationBar" />
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="2. Choose category for your note, choose image from Media Library (or start camera to snap a photo), give your note a title and write text of the note." />
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="3. Save your note by tapping" />
+                                    <Italic Foreground="LightBlue"> check button</Italic>
+                                    <Run Text=" on ApplicationBar." />
+                                </Paragraph>
+                                <Paragraph>
+                                </Paragraph>
+                                <Paragraph Foreground="Red">
+                                    <Bold>Deleting one note:</Bold>
+                                </Paragraph>
+                                <Paragraph>
+                                    <Run Text="On home page tap" />
+                                    <Italic Foreground="LightBlue">trashcan icon</Italic>
+                                    <Run Text=" next to note title." />
+                                </Paragraph>
+                                <Paragraph>
+                                </Paragraph>
+                                <Paragraph Foreground="Red">
+                                    <Bold>Deleting ALL notes:</Bold>
+                                </Paragraph>                                
+                                <Paragraph>
+                                    <Run Text="Tap " />
+                                    <Italic Foreground="LightBlue">trashcan icon</Italic>
+                                    <Run Text=" on ApplicationBar." />
+                                </Paragraph>
+                            </RichTextBox>
+                            <!--<TextBlock x:Name="infoText01"
                                        HorizontalAlignment="Center"
                                        TextWrapping="Wrap"
-                                       Text=""
-                                       VerticalAlignment="Top" />                            
+                                       Text="Use + button on Application Bar to add note. Attache image from Media Library or make new Photo"
+                                       VerticalAlignment="Top" />-->
                         </Grid>
                     </Grid>
                 </ScrollViewer>
@@ -63,7 +148,7 @@
 
                     </Grid>
                 </Grid>
-            </controls:PivotItem>          
+            </controls:PivotItem>
 
         </controls:Pivot>
 

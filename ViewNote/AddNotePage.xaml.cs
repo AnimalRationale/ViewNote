@@ -137,6 +137,8 @@ namespace ViewNote
 
         private void PhoneApplicationPage_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
+            System.Diagnostics.Debug.WriteLine("Orientation changed");
+
             if ( e.Orientation == PageOrientation.Landscape || e.Orientation == PageOrientation.LandscapeLeft || e.Orientation == PageOrientation.LandscapeRight )
             {
                 pivotAddNoteText.Header = null;
