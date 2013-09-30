@@ -20,6 +20,7 @@ namespace ViewNote
     {
         CameraCaptureTask cameraCaptureTask;
         PhotoChooserTask photoChooserTask;
+        static string VNotePhotoFileName;
 
         public AddNote()
         {
@@ -39,7 +40,9 @@ namespace ViewNote
             {
                 addedPhoto.Source = new BitmapImage(new Uri(e.OriginalFileName));
                 addImageStatus.Text = "";
-                addPhotoStatus.Text = "Photo added";
+                //addPhotoStatus.Text = "Photo added";
+                addPhotoStatus.Text = e.OriginalFileName;
+                VNotePhotoFileName = e.OriginalFileName;
             }
         }
 
@@ -51,16 +54,37 @@ namespace ViewNote
                 bmp.SetSource(e.ChosenPhoto);
                 addedPhoto.Source = bmp;
                 addPhotoStatus.Text = "";
-                addImageStatus.Text = "Image added";
+                //addImageStatus.Text = "Image added";
+                addImageStatus.Text = e.OriginalFileName;
+                VNotePhotoFileName = e.OriginalFileName;
             }
         }
 
         private void appbarCheck_Click(object sender, EventArgs e)
         {
-            if ( NavigationService.CanGoBack )
+            if ( newNoteTitleTextBox.Text.Length > 0 || newNoteContentTextBox.Text.Length > 0 )
             {
-                NavigationService.GoBack();
-            };
+                // Create a new to-do item.
+                // VNoteCategory fixedCat = new VNoteCategory();
+                VNoteItem newVNoteItem = new VNoteItem
+                {
+                    VNoteTitle = newNoteTitleTextBox.Text,
+                    VNoteText = newNoteContentTextBox.Text,
+                    VNotePhoto = VNotePhotoFileName,
+                    VNoteDate = DateTime.Now,
+                    Category = (VNoteCategory)categoriesListPicker.SelectedItem
+                   //  Category = fixedCat
+                };
+
+                // Add the item to the ViewModel.
+                App.ViewModel.AddVNoteItem(newVNoteItem);
+
+                // Return to the main page.
+                if ( NavigationService.CanGoBack )
+                {
+                    NavigationService.GoBack();
+                }
+            }            
         }
 
         private void appbarHelp_Click(object sender, EventArgs e)

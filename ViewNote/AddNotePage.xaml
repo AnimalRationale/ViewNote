@@ -60,7 +60,7 @@
                                                 DisplayMemberPath="Name"
                                                 Margin="10,57,1,10"
                                                 RenderTransformOrigin="0.489,0.903"
-                                                Grid.RowSpan="2" />
+                                                Grid.RowSpan="5" />
                             <Button x:Name="buttonAddPhoto"
                                     Grid.Row="0"
                                     Grid.Column="1"

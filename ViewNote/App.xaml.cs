@@ -77,7 +77,7 @@ namespace ViewNote
                 {
                     // Create the local database.
                     db.CreateDatabase();
-
+                    System.Diagnostics.Debug.WriteLine("After creating db: " + DBConnectionString);
                     // Prepopulate the categories.
                     db.Categories.InsertOnSubmit(new VNoteCategory { Name = "Memo" });
                     db.Categories.InsertOnSubmit(new VNoteCategory { Name = "Travel" });

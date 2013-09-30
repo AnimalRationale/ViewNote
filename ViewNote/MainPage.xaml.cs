@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.IO.IsolatedStorage;
+using System.Windows.Media.Imaging;
 using ViewNote.Model;
 
 namespace ViewNote
@@ -35,6 +36,34 @@ namespace ViewNote
             App.ViewModel.SaveChangesToDB();
         }
 
+        private void deleteNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Cast the parameter as a button.
+            var button = sender as Button;
+            if ( button != null )
+            {
+                if ( !settings.Contains("DeleteNoteConf") || settings["DeleteNoteConf"] as string == "Yes" )
+                {
+                    MessageBoxResult mBox = MessageBox.Show("This note will be irreversibly deleted.", "Deleting selected note", MessageBoxButton.OKCancel);
+                    if ( mBox == MessageBoxResult.OK )
+                    {
+                        VNoteItem noteForDelete = button.DataContext as VNoteItem;
+                        App.ViewModel.DeleteVNoteItem(noteForDelete);
+                    }
+                }
+                else
+                {
+                    // Get a handle for the to-do item bound to the button.
+                    VNoteItem noteForDelete = button.DataContext as VNoteItem;
+                    App.ViewModel.DeleteVNoteItem(noteForDelete);
+                }
+
+            }
+
+            // Put the focus back to the main page.
+            this.Focus();
+        }
+
         private void appbarAdd_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/AddNotePage.xaml", UriKind.Relative));
@@ -53,13 +82,18 @@ namespace ViewNote
         private void appbarDelete_Click(object sender, EventArgs e)
         {
             if ( !settings.Contains("DeleteAllConf") || settings["DeleteAllConf"] as string == "Yes" )
-            {
-                MessageBox.Show("ALL notes will be irreversibly deleted.", "Deleting ALL notes", MessageBoxButton.OKCancel);
+            {               
+                MessageBoxResult mBox = MessageBox.Show("ALL notes will be irreversibly deleted.", "Deleting ALL notes", MessageBoxButton.OKCancel);
+                if ( mBox == MessageBoxResult.OK )
+                {
+                    App.ViewModel.DeleteAllVNoteItems();
+                }
             }
             else
             {
-                MessageBox.Show("ALL NOTES DELETED!");
+                App.ViewModel.DeleteAllVNoteItems();               
             }
+            this.Focus();
         }
 
         private void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -74,7 +108,7 @@ namespace ViewNote
                 pivot2.Header = null;
                 pivot3.Header = null;
                 pivot4.Header = null;
-                pivotMain.Margin = new Thickness(0, -150, 0, 0);                
+                pivotMain.Margin = new Thickness(0, -150, 0, 0);
             }
             else
             {
@@ -82,7 +116,7 @@ namespace ViewNote
                 pivot2.Header = "Memos";
                 pivot3.Header = "Travel";
                 pivot4.Header = "Fun";
-                pivotMain.Margin = new Thickness(0, 0, 0, 0);                
+                pivotMain.Margin = new Thickness(0, 0, 0, 0);
             }
         }
 

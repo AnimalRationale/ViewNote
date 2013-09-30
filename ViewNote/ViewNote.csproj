@@ -80,6 +80,7 @@
     <Compile Include="SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\VNoteViewModel.cs" />
     <Compile Include="VNcolors.cs" />
   </ItemGroup>
   <ItemGroup>

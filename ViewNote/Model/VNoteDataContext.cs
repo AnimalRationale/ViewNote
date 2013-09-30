@@ -34,9 +34,9 @@ namespace ViewNote.Model
             {
                 if ( _vNoteItemId != value )
                 {
-                    NotifyPropertyChanging("ToDoItemId");
+                    NotifyPropertyChanging("VNoteItemId");
                     _vNoteItemId = value;
-                    NotifyPropertyChanged("ToDoItemId");
+                    NotifyPropertyChanged("VNoteItemId");
                 }
             }
         }
@@ -55,6 +55,57 @@ namespace ViewNote.Model
                     NotifyPropertyChanging("VNoteTitle");
                     _vNoteTitle = value;
                     NotifyPropertyChanged("VNoteTitle");
+                }
+            }
+        }
+
+        private string _vNoteText;
+
+        [Column]
+        public string VNoteText
+        {
+            get { return _vNoteText; }
+            set
+            {
+                if ( _vNoteText != value )
+                {
+                    NotifyPropertyChanging("VNoteText");
+                    _vNoteText = value;
+                    NotifyPropertyChanged("VNoteText");
+                }
+            }
+        }
+
+        private string _vNotePhoto;
+
+        [Column]
+        public string VNotePhoto
+        {
+            get { return _vNotePhoto; }
+            set
+            {
+                if ( _vNotePhoto != value )
+                {
+                    NotifyPropertyChanging("VNotePhoto");
+                    _vNotePhoto = value;
+                    NotifyPropertyChanged("VNotePhoto");
+                }
+            }
+        }
+
+        private DateTime _vNoteDate;
+
+        [Column(DbType = "DATETIME")]
+        public DateTime VNoteDate
+        {
+            get { return _vNoteDate; }
+            set
+            {
+                if ( _vNoteDate != value )
+                {
+                    NotifyPropertyChanging("VNoteDate");
+                    _vNoteDate = value;
+                    NotifyPropertyChanged("VNoteDate");
                 }
             }
         }
@@ -195,14 +246,14 @@ namespace ViewNote.Model
         // Called during an add operation
         private void attach_Note(VNoteItem note)
         {
-            NotifyPropertyChanging("ToDoItem");
+            NotifyPropertyChanging("VNoteItem");
             note.Category = this;
         }
 
         // Called during a remove operation
         private void detach_Note(VNoteItem note)
         {
-            NotifyPropertyChanging("ToDoItem");
+            NotifyPropertyChanging("VNoteItem");
             note.Category = null;
         }
 

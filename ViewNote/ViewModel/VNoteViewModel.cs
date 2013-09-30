@@ -52,19 +52,19 @@ namespace ViewNote.ViewModel
             set
             {
                 _travelNotesItems = value;
-                NotifyPropertyChanged("WorkToDoItems");
+                NotifyPropertyChanged("TravelNotesItems");
             }
         }
 
         // To-do items associated with the hobbies category.
-        private ObservableCollection<VNoteItem> _FunNotesItems;
+        private ObservableCollection<VNoteItem> _funNotesItems;
         public ObservableCollection<VNoteItem> FunNotesItems
         {
-            get { return _FunNotesItems; }
+            get { return _funNotesItems; }
             set
             {
-                _FunNotesItems = value;
-                NotifyPropertyChanged("HobbiesToDoItems");
+                _funNotesItems = value;
+                NotifyPropertyChanged("FunNotesItems");
             }
         }
 
@@ -85,15 +85,15 @@ namespace ViewNote.ViewModel
         {
 
             // Specify the query for all to-do items in the database.
-            var viewNoteItemsInDB = from VNoteItem todo in viewNoteDB.Items
-                                select todo;
+            var viewNoteItemsInDB = from VNoteItem note in viewNoteDB.Items
+                                    select note;
 
             // Query the database and load all to-do items.
             AllNotesItems = new ObservableCollection<VNoteItem>(viewNoteItemsInDB);
 
             // Specify the query for all categories in the database.
             var viewNoteCategoriesInDB = from VNoteCategory category in viewNoteDB.Categories
-                                     select category;
+                                         select category;
 
 
             // Query the database and load all associated items to their respective collections.
@@ -117,7 +117,6 @@ namespace ViewNote.ViewModel
 
             // Load a list of all categories.
             CategoriesList = viewNoteDB.Categories.ToList();
-
         }
 
         // Add a to-do item to the database and collections.
@@ -178,6 +177,22 @@ namespace ViewNote.ViewModel
             // Save changes to the database.
             viewNoteDB.SubmitChanges();
         }
+
+
+        public void DeleteAllVNoteItems()
+        {
+            var allNotes = from VNoteItem note in viewNoteDB.Items
+                           select note;
+            viewNoteDB.Items.DeleteAllOnSubmit(allNotes);
+            System.Diagnostics.Debug.WriteLine("Count after deleteAll: {0}", allNotes.Count());
+            viewNoteDB.SubmitChanges();
+            AllNotesItems = null;
+            MemoNotesItems = null;
+            TravelNotesItems = null;
+            FunNotesItems = null;
+
+        }
+
 
         // Write changes in the data context to the database.
         public void SaveChangesToDB()
