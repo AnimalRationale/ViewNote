@@ -123,12 +123,7 @@
                                     <Italic Foreground="LightBlue">trashcan icon</Italic>
                                     <Run Text=" on ApplicationBar." />
                                 </Paragraph>
-                            </RichTextBox>
-                            <!--<TextBlock x:Name="infoText01"
-                                       HorizontalAlignment="Center"
-                                       TextWrapping="Wrap"
-                                       Text="Use + button on Application Bar to add note. Attache image from Media Library or make new Photo"
-                                       VerticalAlignment="Top" />-->
+                            </RichTextBox>                            
                         </Grid>
                     </Grid>
                 </ScrollViewer>

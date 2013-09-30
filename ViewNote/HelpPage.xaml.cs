@@ -82,5 +82,14 @@ namespace ViewNote
         private void pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
         }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            
+            if ( e.NavigationMode == System.Windows.Navigation.NavigationMode.Back )
+            {                
+                UseSettings();
+            }
+        }
     }
 }

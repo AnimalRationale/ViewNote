@@ -120,6 +120,15 @@ namespace ViewNote
             }
         }
 
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+
+            if ( e.NavigationMode == System.Windows.Navigation.NavigationMode.Back )
+            {
+                UseSettings();
+            }
+        }
+
         private void UseSettings()
         {
 
