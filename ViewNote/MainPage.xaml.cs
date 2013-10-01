@@ -56,7 +56,7 @@ namespace ViewNote
                     {
                         tileBackImage = new Uri(@"isostore:/Shared/ShellContent/" + App.ViewModel.AllNotesItems.Last().VNotePhoto, UriKind.Absolute);
                         System.Diagnostics.Debug.WriteLine("BackTile photo filename: {0}", tileBackImage);
-                        
+
                     }
                     else
                     {
@@ -72,7 +72,7 @@ namespace ViewNote
                 var tilesUpdatedData = new StandardTileData
                 {
                     Title = "ViewNote ",
-                    Count = noteCount,                    
+                    Count = noteCount,
                     BackBackgroundImage = tileBackImage,
                     BackTitle = noteText
                 };
@@ -219,13 +219,7 @@ namespace ViewNote
         {
             if ( allNotesListBox.SelectedIndex != -1 )
             {
-                // VNoteItem noteForPage = allNotesListBox.DataContext as VNoteItem;
-                // System.Diagnostics.Debug.WriteLine("noteForPage: {0}", ( noteForPage.VNoteItemId ).ToString());
-
-                // String navigationString = String.Format("/NotePage.xaml?ID={0}", ( noteForPage.VNoteItemId).ToString());
                 String navigationString = String.Format("/NotePage.xaml?ID={0}", ( (VNoteItem)allNotesListBox.SelectedItem ).VNoteItemId);
-                //String navigationString = String.Format("/CocktailPage.xaml?ID={0}",( (Cocktail)CocktailsList.SelectedItem ).ID);
-
                 System.Diagnostics.Debug.WriteLine("NavURI: {0}", navigationString);
                 NavigationService.Navigate(new System.Uri(navigationString, UriKind.Relative));
             }

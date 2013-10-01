@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.IO.IsolatedStorage;
+using ViewNote.Model;
 
 namespace ViewNote
 {
@@ -21,6 +22,7 @@ namespace ViewNote
         public NotePage()
         {
             InitializeComponent();
+            this.DataContext = App.ViewModel;
             UseSettings();
         }
 
@@ -58,6 +60,16 @@ namespace ViewNote
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            int noteID = int.Parse(NavigationContext.QueryString["ID"]);
+
+            foreach ( VNoteItem note in App.ViewModel.AllNotesItems )
+            {
+                if ( note.VNoteItemId == noteID )
+                {
+                    DataContext = note;
+                    break;
+                }
+            }
 
             if ( e.NavigationMode == System.Windows.Navigation.NavigationMode.Back )
             {
@@ -93,7 +105,6 @@ namespace ViewNote
                     ApplicationBar.BackgroundColor = VNcolors.ColorDark;
                 }
             }
-        }       
-        
+        }               
     }
 }
