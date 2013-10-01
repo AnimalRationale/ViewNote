@@ -85,6 +85,7 @@
                          ItemsSource="{Binding AllNotesItems}"
                          Margin="12, 0, 12, 0"
                          Width="440"
+                         SelectionChanged="NotesList_SelectionChanged"
                          ItemTemplate="{StaticResource ViewNoteListBoxItemTemplate}" />
             </controls:PivotItem>
 
@@ -94,6 +95,7 @@
                          ItemsSource="{Binding MemoNotesItems}"
                          Margin="12, 0, 12, 0"
                          Width="440"
+                         SelectionChanged="NotesList_SelectionChanged"
                          ItemTemplate="{StaticResource ViewNoteListBoxItemTemplate}" />
             </controls:PivotItem>
 
@@ -103,6 +105,7 @@
                          ItemsSource="{Binding TravelNotesItems}"
                          Margin="12, 0, 12, 0"
                          Width="440"
+                         SelectionChanged="NotesList_SelectionChanged"
                          ItemTemplate="{StaticResource ViewNoteListBoxItemTemplate}" />
             </controls:PivotItem>
 
@@ -112,6 +115,7 @@
                          ItemsSource="{Binding FunNotesItems}"
                          Margin="12, 0, 12, 0"
                          Width="440"
+                         SelectionChanged="NotesList_SelectionChanged"
                          ItemTemplate="{StaticResource ViewNoteListBoxItemTemplate}" />
             </controls:PivotItem>
 

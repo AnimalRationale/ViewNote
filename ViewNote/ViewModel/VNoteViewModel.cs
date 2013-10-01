@@ -118,7 +118,7 @@ namespace ViewNote.ViewModel
 
             // Load a list of all categories.
             CategoriesList = viewNoteDB.Categories.ToList();
-        }
+        }       
 
         // Add a to-do item to the database and collections.
         public void AddVNoteItem(VNoteItem newVNoteItem)

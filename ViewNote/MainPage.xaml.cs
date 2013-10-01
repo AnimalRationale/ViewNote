@@ -199,12 +199,35 @@ namespace ViewNote
             }
         }
 
+
+
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            allNotesListBox.SelectedIndex = -1;
+            memoNotesListBox.SelectedIndex = -1;
+            travelNotesListBox.SelectedIndex = -1;
+            funNotesListBox.SelectedIndex = -1;
 
             if ( e.NavigationMode == System.Windows.Navigation.NavigationMode.Back )
             {
                 UseSettings();
+            }
+        }
+
+        private void NotesList_SelectionChanged(
+            object sender, SelectionChangedEventArgs e)
+        {
+            if ( allNotesListBox.SelectedIndex != -1 )
+            {
+                // VNoteItem noteForPage = allNotesListBox.DataContext as VNoteItem;
+                // System.Diagnostics.Debug.WriteLine("noteForPage: {0}", ( noteForPage.VNoteItemId ).ToString());
+
+                // String navigationString = String.Format("/NotePage.xaml?ID={0}", ( noteForPage.VNoteItemId).ToString());
+                String navigationString = String.Format("/NotePage.xaml?ID={0}", ( (VNoteItem)allNotesListBox.SelectedItem ).VNoteItemId);
+                //String navigationString = String.Format("/CocktailPage.xaml?ID={0}",( (Cocktail)CocktailsList.SelectedItem ).ID);
+
+                System.Diagnostics.Debug.WriteLine("NavURI: {0}", navigationString);
+                NavigationService.Navigate(new System.Uri(navigationString, UriKind.Relative));
             }
         }
 
