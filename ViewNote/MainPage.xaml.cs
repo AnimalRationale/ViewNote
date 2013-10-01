@@ -117,7 +117,7 @@ namespace ViewNote
 
         private void deleteNoteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Cast the parameter as a button.
+            // Cast argument as button.
             var button = sender as Button;
             if ( button != null )
             {
@@ -172,11 +172,19 @@ namespace ViewNote
                 if ( mBox == MessageBoxResult.OK )
                 {
                     App.ViewModel.DeleteAllVNoteItems();
+                    foreach ( var activeTile in ShellTile.ActiveTiles.Where(activeTile => activeTile.NavigationUri.OriginalString != "/") )
+                    {
+                        activeTile.Delete();
+                    } 
                 }
             }
             else
             {
                 App.ViewModel.DeleteAllVNoteItems();
+                foreach ( var activeTile in ShellTile.ActiveTiles.Where(activeTile => activeTile.NavigationUri.OriginalString != "/") )
+                {
+                    activeTile.Delete();
+                } 
             }
             UpdateLiveTiles();
             this.Focus();
