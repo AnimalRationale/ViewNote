@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.Tasks;
 using ViewNote.Model;
+using System.IO;
 
 
 namespace ViewNote
@@ -38,11 +39,65 @@ namespace ViewNote
         {
             if ( e.TaskResult == TaskResult.OK )
             {
-                addedPhoto.Source = new BitmapImage(new Uri(e.OriginalFileName));
+                // addedPhoto.Source = new BitmapImage(new Uri(e.OriginalFileName));
                 addImageStatus.Text = "";
-                //addPhotoStatus.Text = "Photo added";
-                addPhotoStatus.Text = e.OriginalFileName;
-                VNotePhotoFileName = e.OriginalFileName;
+
+                WriteableBitmap writeableBitmap = new WriteableBitmap(1600, 1200);
+                writeableBitmap.LoadJpeg(e.ChosenPhoto);
+
+                string imageFolder = "ViewNotePhotos";
+                string imageFolderTile = "Shared/ShellContent";
+
+                string datetime = DateTime.Now.ToString().Replace("/", "");
+                datetime = datetime.Replace(":", "");                
+                datetime = datetime.Replace(" ", "");
+                string imageFileName = "VNPhoto_" + datetime + ".jpg";                
+                System.Diagnostics.Debug.WriteLine("Image filename: {0}", imageFileName);
+
+                using ( var isoFile = IsolatedStorageFile.GetUserStoreForApplication() )
+                {
+
+                    if ( !isoFile.DirectoryExists(imageFolder) )
+                    {
+                        isoFile.CreateDirectory(imageFolder);
+                    }
+
+                    string filePath = System.IO.Path.Combine(imageFolder, imageFileName);
+                    string filePathTile = System.IO.Path.Combine(imageFolderTile, imageFileName);
+                    using ( var stream = isoFile.CreateFile(filePath) )
+                    {
+                        writeableBitmap.SaveJpeg(stream, writeableBitmap.PixelWidth, writeableBitmap.PixelHeight, 0, 100);
+                        System.Diagnostics.Debug.WriteLine("Save filePath: {0}", filePath);
+                    }
+                    using ( var stream = isoFile.CreateFile(filePathTile) )
+                    {
+                        writeableBitmap.SaveJpeg(stream, writeableBitmap.PixelWidth, writeableBitmap.PixelHeight, 0, 100);
+                        System.Diagnostics.Debug.WriteLine("Save filePathTile: {0}", filePathTile);
+                    }
+                }
+
+                                                
+
+                BitmapImage imageFromStorage = new BitmapImage();
+
+                using ( var isoFile = IsolatedStorageFile.GetUserStoreForApplication() )
+                {
+                    string filePath = System.IO.Path.Combine(imageFolder, imageFileName);
+                    System.Diagnostics.Debug.WriteLine("Read filePath: {0}", filePath);
+                    using ( var imageStream = isoFile.OpenFile(
+                        filePath, FileMode.Open, FileAccess.Read) )
+                    {
+                        imageFromStorage.SetSource(imageStream);
+                        //filePath.Replace("\\", "/");
+                        VNotePhotoFileName = imageFileName;
+                        System.Diagnostics.Debug.WriteLine("Photo filename: {0}", VNotePhotoFileName);
+                    }
+                }
+
+                addPhotoStatus.Text = "Photo added";
+                addedPhoto.Source = imageFromStorage;
+                // addPhotoStatus.Text = e.OriginalFileName;
+                // VNotePhotoFileName = filePath;
             }
         }
 
@@ -72,13 +127,12 @@ namespace ViewNote
                     VNoteText = newNoteContentTextBox.Text,
                     VNotePhoto = VNotePhotoFileName,
                     VNoteDate = DateTime.Now,
-                    Category = (VNoteCategory)categoriesListPicker.SelectedItem
-                   //  Category = fixedCat
+                    Category = (VNoteCategory)categoriesListPicker.SelectedItem                   
                 };
 
                 // Add the item to the ViewModel.
                 App.ViewModel.AddVNoteItem(newVNoteItem);
-
+                
                 // Return to the main page.
                 if ( NavigationService.CanGoBack )
                 {

@@ -6,6 +6,7 @@
                             xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:local="clr-namespace:ViewNote"
                             mc:Ignorable="d"
                             d:DesignWidth="480"
                             d:DesignHeight="768"
@@ -15,10 +16,10 @@
                             SupportedOrientations="PortraitOrLandscape"
                             Orientation="Portrait"
                             OrientationChanged="PhoneApplicationPage_OrientationChanged"
-                            shell:SystemTray.IsVisible="True"
-                            xmlns:local="clr-namespace:ViewNote">
+                            shell:SystemTray.IsVisible="True">
 
     <phone:PhoneApplicationPage.Resources>
+        
         <DataTemplate x:Key="ViewNoteListBoxItemTemplate">
             <Grid x:Name="ListBoxItemGrid"
                   HorizontalAlignment="Stretch"
@@ -34,7 +35,7 @@
                         VerticalAlignment="Center"
                         Background="Transparent">
 
-                    <Image Source="/Images/usercamera.png"
+                    <Image Source="/Images/usercamera.png"                           
                            CacheMode="BitmapCache"
                            Stretch="UniformToFill"
                            HorizontalAlignment="Left" />
@@ -48,7 +49,7 @@
                                TextWrapping="Wrap"
                                Foreground="Cyan"
                                FontSize="16"
-                               Margin="12, 0, 0, 0" />
+                               Margin="14, 0, 0, 0" />
                 </StackPanel>
                 <Button Grid.Column="2"
                         x:Name="deleteNoteButton"

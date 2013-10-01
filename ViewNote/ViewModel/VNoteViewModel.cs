@@ -31,6 +31,7 @@ namespace ViewNote.ViewModel
                 NotifyPropertyChanged("AllNotesItems");
             }
         }
+                
 
         // To-do items associated with the home category.
         private ObservableCollection<VNoteItem> _memoNotesItems;
@@ -186,10 +187,10 @@ namespace ViewNote.ViewModel
             viewNoteDB.Items.DeleteAllOnSubmit(allNotes);
             System.Diagnostics.Debug.WriteLine("Count after deleteAll: {0}", allNotes.Count());
             viewNoteDB.SubmitChanges();
-            AllNotesItems = null;
-            MemoNotesItems = null;
-            TravelNotesItems = null;
-            FunNotesItems = null;
+            AllNotesItems.Clear();
+            MemoNotesItems.Clear();
+            TravelNotesItems.Clear();
+            FunNotesItems.Clear();
 
         }
 

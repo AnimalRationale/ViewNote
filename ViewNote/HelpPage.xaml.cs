@@ -51,12 +51,17 @@ namespace ViewNote
         {
             if ( !settings.Contains("DeleteAllConf") || settings["DeleteAllConf"] as string == "Yes" )
             {
-                MessageBox.Show("ALL notes will be irreversibly deleted.", "Deleting ALL notes", MessageBoxButton.OKCancel);
+                MessageBoxResult mBox = MessageBox.Show("ALL notes will be irreversibly deleted.", "Deleting ALL notes", MessageBoxButton.OKCancel);
+                if ( mBox == MessageBoxResult.OK )
+                {
+                    App.ViewModel.DeleteAllVNoteItems();
+                }
             }
             else
             {
-                MessageBox.Show("ALL NOTES DELETED!");
+                App.ViewModel.DeleteAllVNoteItems();
             }
+            this.Focus();
         }
 
         private void UseSettings()
