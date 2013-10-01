@@ -20,14 +20,27 @@
 
             <!--Panorama item one-->
             <controls:PanoramaItem Header="{Binding VNoteTitle}">
-                <Grid/>
+                <ScrollViewer>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="{Binding VNoteDate}"
+                                   Foreground="Cyan"
+                                   FontSize="18"
+                                   Margin="14,5,0,0" />
+                        <TextBlock Text="{Binding VNoteText}"
+                                   Foreground="GhostWhite"
+                                   FontSize="26"
+                                   Margin="14,15,0,0" />
+                    </StackPanel>
+                </Grid>
+                    </ScrollViewer>
             </controls:PanoramaItem>
 
             <!--Panorama item two-->
             <controls:PanoramaItem Header="Note Image">
                 <Grid>
                     <Image x:Name="notePhoto"
-                                       Source="{Binding VNotePhoto}"
+                                       Source="/Images/stockphotos.png}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Top"
                                        Stretch="Fill" />

@@ -223,6 +223,27 @@ namespace ViewNote
                 System.Diagnostics.Debug.WriteLine("NavURI: {0}", navigationString);
                 NavigationService.Navigate(new System.Uri(navigationString, UriKind.Relative));
             }
+
+            if ( memoNotesListBox.SelectedIndex != -1 )
+            {
+                String navigationString = String.Format("/NotePage.xaml?ID={0}", ( (VNoteItem)memoNotesListBox.SelectedItem ).VNoteItemId);
+                System.Diagnostics.Debug.WriteLine("NavURI: {0}", navigationString);
+                NavigationService.Navigate(new System.Uri(navigationString, UriKind.Relative));
+            }
+
+            if ( travelNotesListBox.SelectedIndex != -1 )
+            {
+                String navigationString = String.Format("/NotePage.xaml?ID={0}", ( (VNoteItem)travelNotesListBox.SelectedItem ).VNoteItemId);
+                System.Diagnostics.Debug.WriteLine("NavURI: {0}", navigationString);
+                NavigationService.Navigate(new System.Uri(navigationString, UriKind.Relative));
+            }
+
+            if ( funNotesListBox.SelectedIndex != -1 )
+            {
+                String navigationString = String.Format("/NotePage.xaml?ID={0}", ( (VNoteItem)funNotesListBox.SelectedItem ).VNoteItemId);
+                System.Diagnostics.Debug.WriteLine("NavURI: {0}", navigationString);
+                NavigationService.Navigate(new System.Uri(navigationString, UriKind.Relative));
+            }
         }
 
         private void UseSettings()
