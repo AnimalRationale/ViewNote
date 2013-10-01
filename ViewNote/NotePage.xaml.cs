@@ -12,6 +12,8 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.IO.IsolatedStorage;
 using ViewNote.Model;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace ViewNote
 {
@@ -22,8 +24,8 @@ namespace ViewNote
         public NotePage()
         {
             InitializeComponent();
-            this.DataContext = App.ViewModel;
-            UseSettings();
+            // this.DataContext = App.ViewModel;
+            UseSettings();            
         }
 
         private void appbarAdd_Click(object sender, EventArgs e)
@@ -61,15 +63,35 @@ namespace ViewNote
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             int noteID = int.Parse(NavigationContext.QueryString["ID"]);
+            VNoteItem noteContext;
+            noteContext = null;
 
             foreach ( VNoteItem note in App.ViewModel.AllNotesItems )
             {
                 if ( note.VNoteItemId == noteID )
                 {
                     DataContext = note;
+                    noteContext = note;
                     break;
                 }
             }
+
+            BitmapImage imageFromStorage = new BitmapImage();
+            string imageFolder = "Shared/ShellContent";
+            string imageFileName = noteContext.VNotePhoto;
+
+            using ( var isoFile = IsolatedStorageFile.GetUserStoreForApplication() )
+            {
+                string filePath = System.IO.Path.Combine(imageFolder, imageFileName);
+                System.Diagnostics.Debug.WriteLine("Read filePath: {0}", filePath);
+                using ( var imageStream = isoFile.OpenFile(
+                    filePath, FileMode.Open, FileAccess.Read) )
+                {
+                    imageFromStorage.SetSource(imageStream);
+                    System.Diagnostics.Debug.WriteLine("Readin image for pano: {0}", 0);
+                }
+            }
+            notePhoto.Source = imageFromStorage;
 
             if ( e.NavigationMode == System.Windows.Navigation.NavigationMode.Back )
             {

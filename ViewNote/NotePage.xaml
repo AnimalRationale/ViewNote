@@ -24,8 +24,14 @@
             </controls:PanoramaItem>
 
             <!--Panorama item two-->
-            <controls:PanoramaItem Header="item2">
-                <Grid/>
+            <controls:PanoramaItem Header="Note Image">
+                <Grid>
+                    <Image x:Name="notePhoto"
+                                       Source="{Binding VNotePhoto}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Top"
+                                       Stretch="Fill" />
+                </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>
     </Grid>
