@@ -25,8 +25,7 @@ namespace ViewNote
 
         public AddNote()
         {
-            InitializeComponent();
-            // Set the page DataContext property to the ViewModel.
+            InitializeComponent();            
             this.DataContext = App.ViewModel;
             UseSettings();
             cameraCaptureTask = new CameraCaptureTask();
@@ -38,8 +37,7 @@ namespace ViewNote
         void cameraCaptureTask_Completed(object sender, PhotoResult e)
         {
             if ( e.TaskResult == TaskResult.OK )
-            {
-                // addedPhoto.Source = new BitmapImage(new Uri(e.OriginalFileName));
+            {                
                 addImageStatus.Text = "";
 
                 WriteableBitmap writeableBitmap = new WriteableBitmap(1600, 1200);
@@ -74,9 +72,7 @@ namespace ViewNote
                         writeableBitmap.SaveJpeg(stream, writeableBitmap.PixelWidth, writeableBitmap.PixelHeight, 0, 100);
                         System.Diagnostics.Debug.WriteLine("Save filePathTile: {0}", filePathTile);
                     }
-                }
-
-                                                
+                }                                                
 
                 BitmapImage imageFromStorage = new BitmapImage();
 
@@ -92,7 +88,6 @@ namespace ViewNote
                         System.Diagnostics.Debug.WriteLine("Photo filename: {0}", VNotePhotoFileName);
                     }
                 }
-
                 addPhotoStatus.Text = "Photo added";
                 addedPhoto.Source = imageFromStorage;                
             }
@@ -116,8 +111,7 @@ namespace ViewNote
         {
             if ( newNoteTitleTextBox.Text.Length > 0 || newNoteContentTextBox.Text.Length > 0 )
             {
-                // Create a new to-do item.
-                // VNoteCategory fixedCat = new VNoteCategory();
+                // Create a new VNoteItem item.                
                 VNoteItem newVNoteItem = new VNoteItem
                 {
                     VNoteTitle = newNoteTitleTextBox.Text,
@@ -131,7 +125,7 @@ namespace ViewNote
                 App.ViewModel.AddVNoteItem(newVNoteItem);
                 ViewNote.MainPage.UpdateLiveTiles();
                 
-                // Return to the main page.
+                // Return to the previous page.
                 if ( NavigationService.CanGoBack )
                 {
                     NavigationService.GoBack();

@@ -21,11 +21,12 @@ namespace ViewNote
     public partial class NotePage : PhoneApplicationPage
     {
         IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+        string thisPageUri;
+        VNoteItem noteContext = null;            
 
         public NotePage()
         {
             InitializeComponent();
-            // this.DataContext = App.ViewModel;
             UseSettings();
         }
 
@@ -39,6 +40,11 @@ namespace ViewNote
             NavigationService.Navigate(new Uri("/HelpPage.xaml", UriKind.Relative));
         }
 
+        private void appbarBack_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+        }
+
         private void appbarSettings_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
@@ -46,7 +52,48 @@ namespace ViewNote
 
         private void appbarPinUnpin_Click(object sender, EventArgs e)
         {
+            ShellTile tile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains(thisPageUri));
+            if ( tile == null )
+            {
+                // Pin doesn't exist, so create new one.                
+                Uri tileBackImage;
+                
+                if ( noteContext.VNotePhoto != null )
+                {
+                    tileBackImage = new Uri(@"isostore:/Shared/ShellContent/" + noteContext.VNotePhoto, UriKind.Absolute);
+                    System.Diagnostics.Debug.WriteLine("Pinned BackTile photo filename: {0}", tileBackImage);
 
+                }
+                else
+                {
+                    tileBackImage = new Uri("/Images/edittext.png", UriKind.Relative);
+                }
+
+
+                StandardTileData tileData = new StandardTileData
+                {
+                    BackgroundImage = tileBackImage,
+                    Title = noteContext.VNoteDate.ToString(),
+                    BackTitle = noteContext.VNoteTitle,
+                    BackBackgroundImage =new Uri("Images/usercamera.png", UriKind.Relative)
+                };
+
+                // Change PinUnpin button state.
+                var appbarPinUnpin = ApplicationBar.Buttons[3] as ApplicationBarIconButton;
+                appbarPinUnpin.Text = "Unpin note";
+                appbarPinUnpin.IconUri = new Uri("/Images/pin.remove.png", UriKind.Relative);
+
+                // Pin to start.
+                ShellTile.Create(new Uri(thisPageUri, UriKind.Relative), tileData);
+            }
+            else
+            {
+                // This tile already pinned, unpinning.
+                tile.Delete();
+                var appbarPinUnpin = ApplicationBar.Buttons[3] as ApplicationBarIconButton;
+                appbarPinUnpin.Text = "Pin note";
+                appbarPinUnpin.IconUri = new Uri("/Images/pin.png", UriKind.Relative);
+            }
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -56,9 +103,7 @@ namespace ViewNote
                 UseSettings();
             }
 
-            int noteID = int.Parse(NavigationContext.QueryString["ID"]);
-            VNoteItem noteContext;
-            noteContext = null;
+            int noteID = int.Parse(NavigationContext.QueryString["ID"]);            
 
             foreach ( VNoteItem note in App.ViewModel.AllNotesItems )
             {
@@ -83,14 +128,14 @@ namespace ViewNote
                         filePath, FileMode.Open, FileAccess.Read) )
                     {
                         imageFromStorage.SetSource(imageStream);
-                        System.Diagnostics.Debug.WriteLine("Readin image for pano: {0}", 0);
+                        System.Diagnostics.Debug.WriteLine("Reading image for pano: {0}", 0);
                     }
                 }
                 notePhoto.Source = imageFromStorage;
             }
 
-            // Check if the user has pinned this recipe tile to the Start page.
-            string thisPageUri = String.Format("/NotePage.xaml?ID={0}", noteID);
+            // Check if pinned
+            thisPageUri = String.Format("/NotePage.xaml?ID={0}", noteID);
             ShellTile tile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains(thisPageUri));
 
             if ( tile == null )

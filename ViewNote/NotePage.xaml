@@ -68,14 +68,18 @@
                                             IconUri="/Images/appbar.questionmark.rest.png"
                                             Text="Help"
                                             Click="appbarHelp_Click" />
-            <shell:ApplicationBarIconButton x:Name="appbarSettings"
-                                            IconUri="/Images/appbar.feature.settings.rest.png"
-                                            Text="Settings"
-                                            Click="appbarSettings_Click" />
+            <shell:ApplicationBarIconButton x:Name="appbarBack"
+                                            IconUri="/Images/homealt.png"
+                                            Text="Home"
+                                            Click="appbarBack_Click" />
             <shell:ApplicationBarIconButton x:Name="appbarPinUnpin"
                                             IconUri="/Images/pin.png"
                                             Text="Pin note"
                                             Click="appbarPinUnpin_Click" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Click="appbarSettings_Click"
+                                              Text="Settings" />                
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

@@ -68,7 +68,7 @@ namespace ViewNote
                     noteText = "Add note... ";
                     tileBackImage = new Uri("/Images/edittext.png", UriKind.Relative);
                 }
-                //ShellTile currentTiles = ShellTile.ActiveTiles.First();
+                
                 var tilesUpdatedData = new StandardTileData
                 {
                     Title = "ViewNote ",
@@ -132,14 +132,14 @@ namespace ViewNote
                 }
                 else
                 {
-                    // Get a handle for the to-do item bound to the button.
+                    // Get a handle for the VNoteItem item bound to button.
                     VNoteItem noteForDelete = button.DataContext as VNoteItem;
                     App.ViewModel.DeleteVNoteItem(noteForDelete);
                 }
                 UpdateLiveTiles();
             }
 
-            // Put the focus back to the main page.
+            // Get back to the main page.
             this.Focus();
         }
 
