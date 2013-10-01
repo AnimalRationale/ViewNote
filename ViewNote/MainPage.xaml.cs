@@ -198,26 +198,60 @@ namespace ViewNote
         {
             if ( e.Orientation == PageOrientation.Landscape || e.Orientation == PageOrientation.LandscapeLeft || e.Orientation == PageOrientation.LandscapeRight )
             {
-                pivot1.Header = null;
-                pivot2.Header = null;
-                pivot3.Header = null;
-                pivot4.Header = null;
-                pivotMain.Margin = new Thickness(0, -150, 0, 0);
+                SetLandscape();
             }
             else
             {
-                pivot1.Header = "All notes";
-                pivot2.Header = "Memos";
-                pivot3.Header = "Travel";
-                pivot4.Header = "Fun";
-                pivotMain.Margin = new Thickness(0, 0, 0, 0);
+                SetPortrait();
             }
         }
 
+        private void CheckOrientation(PageOrientation orientation)
+        {
+            //PageOrientation orientation = Orientation;
 
+            if ( orientation == PageOrientation.Landscape || orientation == PageOrientation.LandscapeLeft || orientation == PageOrientation.LandscapeRight )
+            {
+                SetLandscape();
+            }
+            else
+            {
+                SetPortrait();
+            }
+        }
+
+        private void SetLandscape()
+        {
+            pivot1.Header = null;
+            pivot2.Header = null;
+            pivot3.Header = null;
+            pivot4.Header = null;
+            pivotMain.Margin = new Thickness(0, -150, 0, 0);
+            allNotesListBox.ItemTemplate = (DataTemplate)this.Resources["ViewNoteListBoxItemTemplateLandscape"];
+            memoNotesListBox.ItemTemplate = (DataTemplate)this.Resources["ViewNoteListBoxItemTemplateLandscape"];
+            travelNotesListBox.ItemTemplate = (DataTemplate)this.Resources["ViewNoteListBoxItemTemplateLandscape"];
+            funNotesListBox.ItemTemplate = (DataTemplate)this.Resources["ViewNoteListBoxItemTemplateLandscape"];
+            System.Diagnostics.Debug.WriteLine("Landscape check: {0}", allNotesListBox.ItemTemplate.ToString());
+        }
+
+        private void SetPortrait()
+        {
+            pivot1.Header = "All notes";
+            pivot2.Header = "Memos";
+            pivot3.Header = "Travel";
+            pivot4.Header = "Fun";
+            pivotMain.Margin = new Thickness(0, 0, 0, 0);
+            allNotesListBox.ItemTemplate = (DataTemplate)this.Resources["ViewNoteListBoxItemTemplate"];
+            memoNotesListBox.ItemTemplate = (DataTemplate)this.Resources["ViewNoteListBoxItemTemplate"];
+            travelNotesListBox.ItemTemplate = (DataTemplate)this.Resources["ViewNoteListBoxItemTemplate"];
+            funNotesListBox.ItemTemplate = (DataTemplate)this.Resources["ViewNoteListBoxItemTemplate"];
+        }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            PageOrientation orient = Orientation;
+            CheckOrientation(orient);
+
             allNotesListBox.SelectedIndex = -1;
             memoNotesListBox.SelectedIndex = -1;
             travelNotesListBox.SelectedIndex = -1;
@@ -226,7 +260,8 @@ namespace ViewNote
             if ( e.NavigationMode == System.Windows.Navigation.NavigationMode.Back )
             {
                 UseSettings();
-            }
+            }            
+
         }
 
         private void NotesList_SelectionChanged(

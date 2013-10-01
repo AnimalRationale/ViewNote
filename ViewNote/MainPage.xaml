@@ -13,13 +13,12 @@
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
-                            SupportedOrientations="PortraitOrLandscape"
+                            SupportedOrientations="Portrait"
                             Orientation="Portrait"
-                            OrientationChanged="PhoneApplicationPage_OrientationChanged"
                             shell:SystemTray.IsVisible="True">
 
     <phone:PhoneApplicationPage.Resources>
-        
+
         <DataTemplate x:Key="ViewNoteListBoxItemTemplate">
             <Grid x:Name="ListBoxItemGrid"
                   HorizontalAlignment="Stretch"
@@ -35,7 +34,8 @@
                         VerticalAlignment="Center"
                         Background="Transparent">
 
-                    <Image Source="/Images/usercamera.png"                           
+                    <Image x:Name="listPhoto"
+                           Source="/Images/usercamera.png"
                            CacheMode="BitmapCache"
                            Stretch="UniformToFill"
                            HorizontalAlignment="Left" />
@@ -50,6 +50,59 @@
                                Foreground="Cyan"
                                FontSize="16"
                                Margin="14, 0, 0, 0" />
+                </StackPanel>
+                <Button Grid.Column="2"
+                        x:Name="deleteNoteButton"
+                        BorderThickness="0"
+                        Margin="0, 0, 0, 0"
+                        VerticalAlignment="Center"
+                        Click="deleteNoteButton_Click">
+                    <Image Source="/Images/appbar.delete.rest.png" />
+                </Button>
+
+                <CheckBox IsChecked="{Binding IsFavourite, Mode=TwoWay}"
+                          Grid.Column="3"
+                          VerticalAlignment="Center" />
+
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ViewNoteListBoxItemTemplateLandscape">
+            <Grid x:Name="ListBoxItemGrid"
+                  HorizontalAlignment="Stretch"
+                  Width="740">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="480" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Background="Transparent">
+
+                    <Image x:Name="listPhoto"
+                           Source="/Images/usercamera.png"
+                           CacheMode="BitmapCache"
+                           Stretch="UniformToFill"
+                           HorizontalAlignment="Left" />
+                </Border>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding VNoteTitle}"
+                               FontSize="{StaticResource PhoneFontSizeLarge}"
+                               VerticalAlignment="Center"
+                               Margin="12, 12, 0, 0" />
+                    <TextBlock Text="{Binding VNoteDate}"
+                               TextWrapping="Wrap"
+                               Foreground="Cyan"
+                               FontSize="16"
+                               Margin="14, 0, 0, 0" />
+                    <TextBlock Text="{Binding VNoteText}"
+                               FontSize="14"
+                               Foreground="GhostWhite"
+                               VerticalAlignment="Center"
+                               Margin="12, 12, 0, 0" />
                 </StackPanel>
                 <Button Grid.Column="2"
                         x:Name="deleteNoteButton"

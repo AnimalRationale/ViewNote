@@ -118,7 +118,7 @@ namespace ViewNote
             if ( noteContext.VNotePhoto != null )
             {
                 BitmapImage imageFromStorage = new BitmapImage();
-                string imageFolder = "Shared/ShellContent";
+                string imageFolder = "ViewNotePhotos";
                 string imageFileName = noteContext.VNotePhoto;
 
                 using ( var isoFile = IsolatedStorageFile.GetUserStoreForApplication() )

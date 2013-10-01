@@ -46,12 +46,13 @@
 
             <!--Panorama item two-->
             <controls:PanoramaItem Header="Picture">
-                <Grid>
+                <Grid Margin="0,0,0,15">
                     <Image x:Name="notePhoto"
                            Source="/Images/stockphotos.png}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Top"
-                           Stretch="Fill" />
+                           Margin="0,0,0,0"
+                           Stretch="UniformToFill" />
                 </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>
@@ -78,7 +79,7 @@
                                             Click="appbarPinUnpin_Click" />
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Click="appbarSettings_Click"
-                                              Text="Settings" />                
+                                              Text="Settings" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
