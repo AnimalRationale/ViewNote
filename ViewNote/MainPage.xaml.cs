@@ -127,6 +127,12 @@ namespace ViewNote
                     if ( mBox == MessageBoxResult.OK )
                     {
                         VNoteItem noteForDelete = button.DataContext as VNoteItem;
+                        string tileToDelete = "ID=" + noteForDelete.VNoteItemId.ToString();
+                        ShellTile tile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains(tileToDelete));
+                        if ( tile != null )
+                        {
+                            tile.Delete();
+                        }
                         App.ViewModel.DeleteVNoteItem(noteForDelete);
                     }
                 }

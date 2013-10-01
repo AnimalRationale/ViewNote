@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Phone.Tasks;
 using ViewNote.Model;
 using System.IO;
+using System.Windows.Resources;
 
 
 namespace ViewNote
@@ -37,11 +38,13 @@ namespace ViewNote
         void cameraCaptureTask_Completed(object sender, PhotoResult e)
         {
             if ( e.TaskResult == TaskResult.OK )
-            {                
+            {               
+
                 addImageStatus.Text = "";
 
                 WriteableBitmap writeableBitmap = new WriteableBitmap(1600, 1200);
-                writeableBitmap.LoadJpeg(e.ChosenPhoto);
+                
+                writeableBitmap.LoadJpeg(e.ChosenPhoto);                
 
                 string imageFolder = "ViewNotePhotos";
                 string imageFolderTile = "Shared/ShellContent";
@@ -69,10 +72,10 @@ namespace ViewNote
                     }
                     using ( var stream = isoFile.CreateFile(filePathTile) )
                     {
-                        writeableBitmap.SaveJpeg(stream, writeableBitmap.PixelWidth, writeableBitmap.PixelHeight, 0, 100);
+                        writeableBitmap.SaveJpeg(stream, 160, 120, 0, 100);
                         System.Diagnostics.Debug.WriteLine("Save filePathTile: {0}", filePathTile);
                     }
-                }                                                
+                }                
 
                 BitmapImage imageFromStorage = new BitmapImage();
 
@@ -97,13 +100,58 @@ namespace ViewNote
         {
             if ( e.TaskResult == TaskResult.OK )
             {
-                BitmapImage bmp = new BitmapImage();
-                bmp.SetSource(e.ChosenPhoto);
-                addedPhoto.Source = bmp;
                 addPhotoStatus.Text = "";
-                //addImageStatus.Text = "Image added";
-                addImageStatus.Text = e.OriginalFileName;
-                VNotePhotoFileName = e.OriginalFileName;
+
+                WriteableBitmap writeableBitmap = new WriteableBitmap(1600, 1200);
+
+                writeableBitmap.LoadJpeg(e.ChosenPhoto);
+                string imageFolder = "ViewNotePhotos";
+                string imageFolderTile = "Shared/ShellContent";
+
+                string datetime = DateTime.Now.ToString().Replace("/", "");
+                datetime = datetime.Replace(":", "");
+                datetime = datetime.Replace(" ", "");
+                string imageFileName = "VNPhoto_" + datetime + ".jpg";
+                System.Diagnostics.Debug.WriteLine("Image filename: {0}", imageFileName);
+
+                using ( var isoFile = IsolatedStorageFile.GetUserStoreForApplication() )
+                {
+
+                    if ( !isoFile.DirectoryExists(imageFolder) )
+                    {
+                        isoFile.CreateDirectory(imageFolder);
+                    }
+
+                    string filePath = System.IO.Path.Combine(imageFolder, imageFileName);
+                    string filePathTile = System.IO.Path.Combine(imageFolderTile, imageFileName);
+                    using ( var stream = isoFile.CreateFile(filePath) )
+                    {
+                        writeableBitmap.SaveJpeg(stream, writeableBitmap.PixelWidth, writeableBitmap.PixelHeight, 0, 100);
+                        System.Diagnostics.Debug.WriteLine("Save filePath: {0}", filePath);
+                    }
+                    using ( var stream = isoFile.CreateFile(filePathTile) )
+                    {
+                        writeableBitmap.SaveJpeg(stream, 160, 120, 0, 100);
+                        System.Diagnostics.Debug.WriteLine("Save filePathTile: {0}", filePathTile);
+                    }
+                }
+
+                BitmapImage imageFromStorage = new BitmapImage();
+
+                using ( var isoFile = IsolatedStorageFile.GetUserStoreForApplication() )
+                {
+                    string filePath = System.IO.Path.Combine(imageFolder, imageFileName);
+                    System.Diagnostics.Debug.WriteLine("Image Read filePath: {0}", filePath);
+                    using ( var imageStream = isoFile.OpenFile(
+                        filePath, FileMode.Open, FileAccess.Read) )
+                    {
+                        imageFromStorage.SetSource(imageStream);
+                        VNotePhotoFileName = imageFileName;
+                        System.Diagnostics.Debug.WriteLine("Image filename: {0}", VNotePhotoFileName);
+                    }
+                }
+                addImageStatus.Text = "Image added";
+                addedPhoto.Source = imageFromStorage;
             }
         }
 
@@ -121,11 +169,11 @@ namespace ViewNote
                     Category = (VNoteCategory)categoriesListPicker.SelectedItem                   
                 };
 
-                // Add the item to the ViewModel.
+                // Add the item to ViewModel.
                 App.ViewModel.AddVNoteItem(newVNoteItem);
                 ViewNote.MainPage.UpdateLiveTiles();
                 
-                // Return to the previous page.
+                // Return to previous page.
                 if ( NavigationService.CanGoBack )
                 {
                     NavigationService.GoBack();

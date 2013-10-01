@@ -73,9 +73,10 @@ namespace ViewNote
                 StandardTileData tileData = new StandardTileData
                 {
                     BackgroundImage = tileBackImage,
-                    Title = noteContext.VNoteDate.ToString(),
-                    BackTitle = noteContext.VNoteTitle,
-                    BackBackgroundImage =new Uri("Images/usercamera.png", UriKind.Relative)
+                    Title = noteContext.VNoteTitle,
+                    BackTitle = noteContext.VNoteDate.ToString(),
+                    BackContent = noteContext.VNoteText,
+                    BackBackgroundImage = null
                 };
 
                 // Change PinUnpin button state.
