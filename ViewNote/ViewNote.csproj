@@ -163,6 +163,12 @@
     <Content Include="Images\homealt.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\pin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\pin.remove.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\stockphotos.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

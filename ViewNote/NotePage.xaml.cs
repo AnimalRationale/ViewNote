@@ -14,6 +14,7 @@ using System.IO.IsolatedStorage;
 using ViewNote.Model;
 using System.Windows.Media.Imaging;
 using System.IO;
+using Microsoft.Phone.Shell;
 
 namespace ViewNote
 {
@@ -25,7 +26,7 @@ namespace ViewNote
         {
             InitializeComponent();
             // this.DataContext = App.ViewModel;
-            UseSettings();            
+            UseSettings();
         }
 
         private void appbarAdd_Click(object sender, EventArgs e)
@@ -43,25 +44,18 @@ namespace ViewNote
             NavigationService.Navigate(new Uri("/SettingsPage.xaml", UriKind.Relative));
         }
 
-        private void appbarDelete_Click(object sender, EventArgs e)
+        private void appbarPinUnpin_Click(object sender, EventArgs e)
         {
-            if ( !settings.Contains("DeleteAllConf") || settings["DeleteAllConf"] as string == "Yes" )
-            {
-                MessageBoxResult mBox = MessageBox.Show("ALL notes will be irreversibly deleted.", "Deleting ALL notes", MessageBoxButton.OKCancel);
-                if ( mBox == MessageBoxResult.OK )
-                {
-                    App.ViewModel.DeleteAllVNoteItems();
-                }
-            }
-            else
-            {
-                App.ViewModel.DeleteAllVNoteItems();
-            }
-            this.Focus();
+
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            if ( e.NavigationMode == System.Windows.Navigation.NavigationMode.Back )
+            {
+                UseSettings();
+            }
+
             int noteID = int.Parse(NavigationContext.QueryString["ID"]);
             VNoteItem noteContext;
             noteContext = null;
@@ -93,10 +87,24 @@ namespace ViewNote
             }
             notePhoto.Source = imageFromStorage;
 
-            if ( e.NavigationMode == System.Windows.Navigation.NavigationMode.Back )
-            {
-                UseSettings();
+            // Check if the user has pinned this recipe tile to the Start page.
+            string thisPageUri = String.Format("/NotePage.xaml?ID={0}", noteID);
+            ShellTile tile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains(thisPageUri));            
+
+            if ( tile == null )
+            {                
+                var appbarPinUnpin = ApplicationBar.Buttons[3] as ApplicationBarIconButton;
+                appbarPinUnpin.Text = "Pin note to Start";
+                appbarPinUnpin.IconUri = new Uri("/Images/pin.png", UriKind.Relative);
             }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Tile: {0}", tile.ToString());
+                var appbarPinUnpin = ApplicationBar.Buttons[3] as ApplicationBarIconButton;
+                appbarPinUnpin.Text = "Unpin note";
+                appbarPinUnpin.IconUri = new Uri("/Images/pin.remove.png", UriKind.Relative);
+            }
+
         }
 
         private void UseSettings()
@@ -127,6 +135,6 @@ namespace ViewNote
                     ApplicationBar.BackgroundColor = VNcolors.ColorDark;
                 }
             }
-        }               
+        }
     }
 }
