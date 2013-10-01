@@ -7,15 +7,15 @@ namespace ViewNote.Model
 {
     public class VNoteDataContext : DataContext
     {
-        // Pass the connection string to the base class.
+        // Connection string to the base class.
         public VNoteDataContext(string connectionString)
             : base(connectionString)
         { }
 
-        // Specify a table for the to-do items.
+        // Table for VNoteItem items.
         public Table<VNoteItem> Items;
 
-        // Specify a table for the categories.
+        // Table for categories.
         public Table<VNoteCategory> Categories;
     }
 
@@ -23,7 +23,7 @@ namespace ViewNote.Model
     public class VNoteItem : INotifyPropertyChanged, INotifyPropertyChanging
     {
 
-        // Define ID: private field, public property, and database column.
+        // ID: private field, public property, and database column.
         private int _vNoteItemId;
 
         [Column(IsPrimaryKey = true, IsDbGenerated = true, DbType = "INT NOT NULL Identity", CanBeNull = false, AutoSync = AutoSync.OnInsert)]
@@ -41,7 +41,7 @@ namespace ViewNote.Model
             }
         }
 
-        // Define item name: private field, public property, and database column.
+        // Item name: private field, public property, and database column.
         private string _vNoteTitle;
 
         [Column]
@@ -110,7 +110,7 @@ namespace ViewNote.Model
             }
         }
 
-        // Define completion value: private field, public property, and database column.
+        // Completion value: private field, public property, and database column.
         private bool _isFavourite;
 
         [Column]
@@ -128,7 +128,7 @@ namespace ViewNote.Model
             }
         }
 
-        // Version column aids update performance.
+        // Version column for performance.
         [Column(IsVersion = true)]
         private Binary _version;
 
@@ -136,7 +136,7 @@ namespace ViewNote.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Used to notify that a property changed
+        // Notify of property change
         private void NotifyPropertyChanged(string propertyName)
         {
             if ( PropertyChanged != null )
@@ -151,7 +151,7 @@ namespace ViewNote.Model
 
         public event PropertyChangingEventHandler PropertyChanging;
 
-        // Used to notify that a property is about to change
+        // Notify of property being about to change
         private void NotifyPropertyChanging(string propertyName)
         {
             if ( PropertyChanging != null )
@@ -162,14 +162,14 @@ namespace ViewNote.Model
 
         #endregion
 
-        // Internal column for the associated ToDoCategory ID value
+        // Internal column for the associated VNoteCategory ID value
         [Column]
         internal int _categoryId;
 
-        // Entity reference, to identify the ToDoCategory "storage" table
+        // Entity reference identifing the VnoteCategory "storage" table
         private EntityRef<VNoteCategory> _category;
 
-        // Association, to describe the relationship between this key and that "storage" table
+        // Association describing relationship between this key and that "storage" table
         [Association(Storage = "_category", ThisKey = "_categoryId", OtherKey = "Id", IsForeignKey = true)]
         public VNoteCategory Category
         {
@@ -193,7 +193,7 @@ namespace ViewNote.Model
     public class VNoteCategory : INotifyPropertyChanged, INotifyPropertyChanging
     {
 
-        // Define ID: private field, public property, and database column.
+        // ID: private field, public property, and database column.
         private int _id;
 
         [Column(DbType = "INT NOT NULL IDENTITY", IsDbGenerated = true, IsPrimaryKey = true)]
@@ -208,7 +208,7 @@ namespace ViewNote.Model
             }
         }
 
-        // Define category name: private field, public property, and database column.
+        // Category name: private field, public property, and database column.
         private string _name;
 
         [Column]
@@ -223,7 +223,7 @@ namespace ViewNote.Model
             }
         }
 
-        // Define the entity set for the collection side of the relationship.
+        // Entity set for collection side of relationship.
         private EntitySet<VNoteItem> _notes;
 
         [Association(Storage = "_notes", OtherKey = "_categoryId", ThisKey = "Id")]
@@ -234,7 +234,7 @@ namespace ViewNote.Model
         }
 
 
-        // Assign handlers for the add and remove operations, respectively.
+        // Handlers for add and remove actions.
         public VNoteCategory()
         {
             _notes = new EntitySet<VNoteItem>(
@@ -243,21 +243,21 @@ namespace ViewNote.Model
                 );
         }
 
-        // Called during an add operation
+        // Add action
         private void attach_Note(VNoteItem note)
         {
             NotifyPropertyChanging("VNoteItem");
             note.Category = this;
         }
 
-        // Called during a remove operation
+        // Remove action
         private void detach_Note(VNoteItem note)
         {
             NotifyPropertyChanging("VNoteItem");
             note.Category = null;
         }
 
-        // Version column aids update performance.
+        // Version column for performance.
         [Column(IsVersion = true)]
         private Binary _version;
 
@@ -265,7 +265,7 @@ namespace ViewNote.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Used to notify that a property changed
+        // Notify property change
         private void NotifyPropertyChanged(string propertyName)
         {
             if ( PropertyChanged != null )
@@ -280,7 +280,7 @@ namespace ViewNote.Model
 
         public event PropertyChangingEventHandler PropertyChanging;
 
-        // Used to notify that a property is about to change
+        // Notify property is about to change
         private void NotifyPropertyChanging(string propertyName)
         {
             if ( PropertyChanging != null )
@@ -288,9 +288,6 @@ namespace ViewNote.Model
                 PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
             }
         }
-
         #endregion
     }
-
-
 }

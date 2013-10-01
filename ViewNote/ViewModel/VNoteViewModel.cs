@@ -11,16 +11,16 @@ namespace ViewNote.ViewModel
 {
     public class ViewNoteViewModel : INotifyPropertyChanged
     {
-        // LINQ to SQL data context for the local database.
+        // LINQ to SQL data context for local database.
         private VNoteDataContext viewNoteDB;
 
-        // Class constructor, create the data context object.
+        // Class constructor creating the data context object.
         public ViewNoteViewModel(string viewNoteDBConnectionString)
         {
             viewNoteDB = new VNoteDataContext(viewNoteDBConnectionString);
         }
 
-        // All to-do items.
+        // All Notes items.
         private ObservableCollection<VNoteItem> _allNotesItems;
         public ObservableCollection<VNoteItem> AllNotesItems
         {
@@ -33,7 +33,7 @@ namespace ViewNote.ViewModel
         }
                 
 
-        // To-do items associated with the home category.
+        // Notes items associated with Memo category.
         private ObservableCollection<VNoteItem> _memoNotesItems;
         public ObservableCollection<VNoteItem> MemoNotesItems
         {
@@ -45,7 +45,7 @@ namespace ViewNote.ViewModel
             }
         }
 
-        // To-do items associated with the work category.
+        // Notes items associated with Travel category.
         private ObservableCollection<VNoteItem> _travelNotesItems;
         public ObservableCollection<VNoteItem> TravelNotesItems
         {
@@ -57,7 +57,7 @@ namespace ViewNote.ViewModel
             }
         }
 
-        // To-do items associated with the hobbies category.
+        // Notes items associated with Fun category.
         private ObservableCollection<VNoteItem> _funNotesItems;
         public ObservableCollection<VNoteItem> FunNotesItems
         {
@@ -69,7 +69,7 @@ namespace ViewNote.ViewModel
             }
         }
 
-        // A list of all categories, used by the add task page.
+        // A list of all categories used in AddNotePage.
         private List<VNoteCategory> _categoriesList;
         public List<VNoteCategory> CategoriesList
         {
@@ -81,23 +81,23 @@ namespace ViewNote.ViewModel
             }
         }
 
-        // Query database and load the collections and list used by the pivot pages.
+        // Query database to load collections and list used by pivot pages.
         public void LoadCollectionsFromDatabase()
         {
 
-            // Specify the query for all to-do items in the database.
+            // Query for all VNote items in the database.
             var viewNoteItemsInDB = from VNoteItem note in viewNoteDB.Items
                                     select note;
 
-            // Query the database and load all to-do items.
+            // Query the database and load all VNotes items.
             AllNotesItems = new ObservableCollection<VNoteItem>(viewNoteItemsInDB);
 
-            // Specify the query for all categories in the database.
+            // Query for all categories in the database.
             var viewNoteCategoriesInDB = from VNoteCategory category in viewNoteDB.Categories
                                          select category;
 
 
-            // Query the database and load all associated items to their respective collections.
+            // Query the database and load all associated items to proper collections.
             foreach ( VNoteCategory category in viewNoteCategoriesInDB )
             {
                 switch ( category.Name )
@@ -120,19 +120,19 @@ namespace ViewNote.ViewModel
             CategoriesList = viewNoteDB.Categories.ToList();
         }       
 
-        // Add a to-do item to the database and collections.
+        // Add VNote item to the database and collections.
         public void AddVNoteItem(VNoteItem newVNoteItem)
         {
-            // Add a to-do item to the data context.
+            // Add VNote item to the data context.
             viewNoteDB.Items.InsertOnSubmit(newVNoteItem);
 
             // Save changes to the database.
             viewNoteDB.SubmitChanges();
 
-            // Add a to-do item to the "all" observable collection.
+            // Add VNote item to the "all" observable collection.
             AllNotesItems.Add(newVNoteItem);
 
-            // Add a to-do item to the appropriate filtered collection.
+            // Add VNote item to the appropriate filtered collection.
             switch ( newVNoteItem.Category.Name )
             {
                 case "Memo":
@@ -149,17 +149,17 @@ namespace ViewNote.ViewModel
             }
         }
 
-        // Remove a to-do task item from the database and collections.
+        // Remove VNote item from the database and collections.
         public void DeleteVNoteItem(VNoteItem noteToDelete)
         {
 
-            // Remove the to-do item from the "all" observable collection.
+            // Remove Vnote item from "all" observable collection.
             AllNotesItems.Remove(noteToDelete);
 
-            // Remove the to-do item from the data context.
+            // Remove VNote item from  data context.
             viewNoteDB.Items.DeleteOnSubmit(noteToDelete);
 
-            // Remove the to-do item from the appropriate category.   
+            // Remove VNote from category.   
             switch ( noteToDelete.Category.Name )
             {
                 case "Memo":
@@ -195,7 +195,7 @@ namespace ViewNote.ViewModel
         }
 
 
-        // Write changes in the data context to the database.
+        // Write changes in data context to database.
         public void SaveChangesToDB()
         {
             viewNoteDB.SubmitChanges();
@@ -205,7 +205,7 @@ namespace ViewNote.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        // Used to notify the app that a property has changed.
+        // Notify app about property change.
         private void NotifyPropertyChanged(string propertyName)
         {
             if ( PropertyChanged != null )
