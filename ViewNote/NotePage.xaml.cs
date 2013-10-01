@@ -69,30 +69,32 @@ namespace ViewNote
                     break;
                 }
             }
-
-            BitmapImage imageFromStorage = new BitmapImage();
-            string imageFolder = "Shared/ShellContent";
-            string imageFileName = noteContext.VNotePhoto;
-
-            using ( var isoFile = IsolatedStorageFile.GetUserStoreForApplication() )
+            if ( noteContext.VNotePhoto != null )
             {
-                string filePath = System.IO.Path.Combine(imageFolder, imageFileName);
-                System.Diagnostics.Debug.WriteLine("Read filePath: {0}", filePath);
-                using ( var imageStream = isoFile.OpenFile(
-                    filePath, FileMode.Open, FileAccess.Read) )
+                BitmapImage imageFromStorage = new BitmapImage();
+                string imageFolder = "Shared/ShellContent";
+                string imageFileName = noteContext.VNotePhoto;
+
+                using ( var isoFile = IsolatedStorageFile.GetUserStoreForApplication() )
                 {
-                    imageFromStorage.SetSource(imageStream);
-                    System.Diagnostics.Debug.WriteLine("Readin image for pano: {0}", 0);
+                    string filePath = System.IO.Path.Combine(imageFolder, imageFileName);
+                    System.Diagnostics.Debug.WriteLine("Read filePath: {0}", filePath);
+                    using ( var imageStream = isoFile.OpenFile(
+                        filePath, FileMode.Open, FileAccess.Read) )
+                    {
+                        imageFromStorage.SetSource(imageStream);
+                        System.Diagnostics.Debug.WriteLine("Readin image for pano: {0}", 0);
+                    }
                 }
+                notePhoto.Source = imageFromStorage;
             }
-            notePhoto.Source = imageFromStorage;
 
             // Check if the user has pinned this recipe tile to the Start page.
             string thisPageUri = String.Format("/NotePage.xaml?ID={0}", noteID);
-            ShellTile tile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains(thisPageUri));            
+            ShellTile tile = ShellTile.ActiveTiles.FirstOrDefault(x => x.NavigationUri.ToString().Contains(thisPageUri));
 
             if ( tile == null )
-            {                
+            {
                 var appbarPinUnpin = ApplicationBar.Buttons[3] as ApplicationBarIconButton;
                 appbarPinUnpin.Text = "Pin note to Start";
                 appbarPinUnpin.IconUri = new Uri("/Images/pin.png", UriKind.Relative);

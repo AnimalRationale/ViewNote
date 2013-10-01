@@ -40,7 +40,7 @@ namespace ViewNote
             App.ViewModel.SaveChangesToDB();
         }
 
-        public void UpdateLiveTiles()
+        public static void UpdateLiveTiles()
         {
             ShellTile currentTiles = ShellTile.ActiveTiles.First();
             if ( currentTiles != null )
@@ -52,7 +52,7 @@ namespace ViewNote
                 if ( noteCount != 0 )
                 {
                     noteText = App.ViewModel.AllNotesItems.Last().VNoteTitle;
-                    if ( App.ViewModel.AllNotesItems.Last().VNotePhoto.Length > 0 )
+                    if ( App.ViewModel.AllNotesItems.Last().VNotePhoto != null )
                     {
                         tileBackImage = new Uri(@"isostore:/Shared/ShellContent/" + App.ViewModel.AllNotesItems.Last().VNotePhoto, UriKind.Absolute);
                         System.Diagnostics.Debug.WriteLine("BackTile photo filename: {0}", tileBackImage);
@@ -136,7 +136,7 @@ namespace ViewNote
                     VNoteItem noteForDelete = button.DataContext as VNoteItem;
                     App.ViewModel.DeleteVNoteItem(noteForDelete);
                 }
-
+                UpdateLiveTiles();
             }
 
             // Put the focus back to the main page.
@@ -172,6 +172,7 @@ namespace ViewNote
             {
                 App.ViewModel.DeleteAllVNoteItems();
             }
+            UpdateLiveTiles();
             this.Focus();
         }
 

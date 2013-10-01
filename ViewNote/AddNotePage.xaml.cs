@@ -87,17 +87,14 @@ namespace ViewNote
                     using ( var imageStream = isoFile.OpenFile(
                         filePath, FileMode.Open, FileAccess.Read) )
                     {
-                        imageFromStorage.SetSource(imageStream);
-                        //filePath.Replace("\\", "/");
+                        imageFromStorage.SetSource(imageStream);                       
                         VNotePhotoFileName = imageFileName;
                         System.Diagnostics.Debug.WriteLine("Photo filename: {0}", VNotePhotoFileName);
                     }
                 }
 
                 addPhotoStatus.Text = "Photo added";
-                addedPhoto.Source = imageFromStorage;
-                // addPhotoStatus.Text = e.OriginalFileName;
-                // VNotePhotoFileName = filePath;
+                addedPhoto.Source = imageFromStorage;                
             }
         }
 
@@ -132,6 +129,7 @@ namespace ViewNote
 
                 // Add the item to the ViewModel.
                 App.ViewModel.AddVNoteItem(newVNoteItem);
+                ViewNote.MainPage.UpdateLiveTiles();
                 
                 // Return to the main page.
                 if ( NavigationService.CanGoBack )

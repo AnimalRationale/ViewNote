@@ -21,7 +21,7 @@
         <controls:Panorama Title="ViewNote">
 
             <!--Panorama item one-->
-            <controls:PanoramaItem Header="{Binding VNoteTitle}">
+            <controls:PanoramaItem Header="Note">
                 <ScrollViewer>
                     <Grid>
                         <StackPanel>
@@ -45,7 +45,7 @@
             </controls:PanoramaItem>
 
             <!--Panorama item two-->
-            <controls:PanoramaItem Header="Note Image">
+            <controls:PanoramaItem Header="Picture">
                 <Grid>
                     <Image x:Name="notePhoto"
                            Source="/Images/stockphotos.png}"
