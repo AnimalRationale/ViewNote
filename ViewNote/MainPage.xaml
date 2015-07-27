@@ -16,9 +16,9 @@
                             SupportedOrientations="Portrait"
                             Orientation="Portrait"
                             shell:SystemTray.IsVisible="True">
-
+    
     <phone:PhoneApplicationPage.Resources>
-
+        
         <DataTemplate x:Key="ViewNoteListBoxItemTemplate">
             <Grid x:Name="ListBoxItemGrid"
                   HorizontalAlignment="Stretch"
@@ -170,30 +170,7 @@
                          Width="440"
                          SelectionChanged="NotesList_SelectionChanged"
                          ItemTemplate="{StaticResource ViewNoteListBoxItemTemplate}" />
-            </controls:PivotItem>
-
-            <controls:PivotItem x:Name="pivot5"
-                                Header="Debug">
-
-                <ScrollViewer>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <Grid x:Name="ContentPanel01"
-                              Grid.Row="1"
-                              Margin="12,0,12,0">
-                            <TextBlock x:Name="infoText01"
-                                       HorizontalAlignment="Center"
-                                       TextWrapping="Wrap"
-                                       Text=""
-                                       VerticalAlignment="Top" />
-                        </Grid>
-                    </Grid>
-                </ScrollViewer>
-            </controls:PivotItem>
+            </controls:PivotItem>            
 
         </controls:Pivot>
 

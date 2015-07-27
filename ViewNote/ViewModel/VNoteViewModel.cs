@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
-
+using System.Windows.Data;
+using System.Windows.Media.Imaging;
 // Directive for the data model.
 using ViewNote.Model;
 
@@ -118,7 +122,41 @@ namespace ViewNote.ViewModel
 
             // Load a list of all categories.
             CategoriesList = viewNoteDB.Categories.ToList();
-        }       
+        }
+
+        public class PathToImageConverter : IValueConverter
+        {
+            private static IsolatedStorageFile isoStorage = IsolatedStorageFile.GetUserStoreForApplication();
+
+            public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+            {
+                string path = value as string;
+                System.Diagnostics.Debug.WriteLine("Converter input path: {0}", path);
+
+                if ( string.IsNullOrEmpty(path) || path.Length < 6 )
+                    return null;
+
+                if ( ( path.Length > 9 ) && ( path.ToLower().Substring(0, 9).Equals("isostore:") ) )
+                {
+                    using ( var sourceFile = isoStorage.OpenFile(path.Substring(9), FileMode.Open, FileAccess.Read) )
+                    {
+                        BitmapImage image = new BitmapImage();
+                        image.SetSource(sourceFile);
+                        return image;
+                    }
+                }
+                else
+                {
+                    BitmapImage image = new BitmapImage(new Uri(path));
+                    return image;
+                }
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         // Add VNote item to the database and collections.
         public void AddVNoteItem(VNoteItem newVNoteItem)

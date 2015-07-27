@@ -300,9 +300,7 @@ namespace ViewNote
         {
 
             if ( !settings.Contains("AppBackColor") )
-            {
-                infoText01.Text = "No Settings.\n";
-
+            {               
                 settings.Add("AppBackColor", "Black");
                 settings.Add("AppbarColor", "Dark");
                 settings.Add("DeleteAllConf", "Yes");
@@ -310,12 +308,7 @@ namespace ViewNote
                 settings.Save();
             }
             else
-            {
-                infoText01.Text = " AppBackColor: " + settings["AppBackColor"];
-                infoText01.Text = infoText01.Text + "\n AppbarColor: " + settings["AppbarColor"];
-                infoText01.Text = infoText01.Text + "\n DeleteAllConf: " + settings["DeleteAllConf"];
-                infoText01.Text = infoText01.Text + "\n DeleteNoteConf: " + settings["DeleteNoteConf"];
-
+            {                
                 if ( settings["AppBackColor"] as string == "userColor01" )
                 {
                     this.LayoutRoot.Background = VNcolors.ColorAppBg;
